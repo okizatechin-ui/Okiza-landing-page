@@ -46,6 +46,40 @@ export default function CinematicWorkflow() {
   });
 
   const canvasRef = useRef(null);
+  const sectionRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: -2000, y: -2000 });
+
+  // Stage RGB lookup for smooth background chromatic interpolation
+  const stageColors = [
+    [56, 189, 248],   // 01 Ingest: Sky / Cyan
+    [192, 132, 252],  // 02 Synthesize: Purple / Amethyst
+    [245, 158, 11],   // 03 Governance: Amber / Gold
+    [34, 197, 94],    // 04 Deploy: Emerald
+    [6, 182, 212],    // 05 Flywheel: Deep Cyan
+  ];
+
+  // Ref for mouse physics
+  const mouseRef = useRef({
+    x: -2000,
+    y: -2000,
+    targetX: -2000,
+    targetY: -2000,
+    active: false,
+    radius: 170,
+  });
+
+  const handleMouseMove = (e) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePos({ x, y });
+    if (mouseRef.current) {
+      mouseRef.current.targetX = x;
+      mouseRef.current.targetY = y;
+      mouseRef.current.active = true;
+    }
+  };
 
   // 5 Stages of the Autonomous Growth Loop
   const stages = [
@@ -195,60 +229,247 @@ export default function CinematicWorkflow() {
     return () => clearInterval(metricTimer);
   }, []);
 
-  // Ambient Canvas Particle System (floating cybernetic photons)
+  // ==========================================================
+  // HIGH-END GENERATIVE DYNAMIC BACKGROUND ENGINE (NON-VIBE-CODED)
+  // Precision Matrix Grid + Traveling Fiber Photons + Fluid Wave Harmonics + Cursor Neural Synapses
+  // ==========================================================
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let animationFrameId;
-    let width = (canvas.width = canvas.offsetWidth);
-    let height = (canvas.height = canvas.offsetHeight);
+    let animId;
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
 
-    const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = canvas.offsetWidth;
-      height = canvas.height = canvas.offsetHeight;
+    // Smoothed RGB color state for background waveforms
+    let currentColor = [...stageColors[activeStep]];
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = canvas.offsetWidth;
+      height = canvas.offsetHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.scale(dpr, dpr);
     };
-    window.addEventListener("resize", handleResize);
+    resize();
+    window.addEventListener("resize", resize);
 
-    const particles = Array.from({ length: 45 }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      radius: Math.random() * 1.5 + 0.5,
-      alpha: Math.random() * 0.5 + 0.2,
+    // Traveling photons along grid tracks
+    const spacing = 58;
+    const photonCount = 16;
+    const photons = Array.from({ length: photonCount }, (_, i) => ({
+      axis: i % 2 === 0 ? "h" : "v", // horizontal or vertical
+      lineIndex: Math.floor(Math.random() * 30),
+      pos: Math.random() * 2000,
+      speed: (Math.random() * 1.4 + 0.9) * (Math.random() > 0.5 ? 1 : -1),
+      len: Math.random() * 45 + 25,
     }));
 
+    let time = 0;
+
     const render = () => {
+      time += 1;
       ctx.clearRect(0, 0, width, height);
 
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = width;
-        if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height;
-        if (p.y > height) p.y = 0;
+      // Smooth color interpolation towards target stage color
+      const targetColor = stageColors[activeStep] || stageColors[0];
+      for (let c = 0; c < 3; c++) {
+        currentColor[c] += (targetColor[c] - currentColor[c]) * 0.05;
+      }
+      const [cr, cg, cb] = currentColor.map(Math.round);
+
+      // Mouse position lerping
+      const mouse = mouseRef.current;
+      mouse.x += (mouse.targetX - mouse.x) * 0.08;
+      mouse.y += (mouse.targetY - mouse.y) * 0.08;
+
+      // ----------------------------------------------------
+      // 1. LAYER: Organic Deep Harmonic Ribbons (Topological Wave Caustics)
+      // ----------------------------------------------------
+      const waveCount = 3;
+      for (let w = 0; w < waveCount; w++) {
+        ctx.beginPath();
+        const baseHeight = height * (0.28 + w * 0.26);
+        const freq1 = 0.0018 + w * 0.0008;
+        const freq2 = 0.0042 + w * 0.0012;
+        const speedMultiplier = (w === 0 ? 0.012 : w === 1 ? -0.01 : 0.016);
+
+        for (let x = 0; x <= width; x += 14) {
+          const yOffset =
+            Math.sin(x * freq1 + time * speedMultiplier) * 32 +
+            Math.cos(x * freq2 - time * (speedMultiplier * 0.6)) * 20;
+
+          let y = baseHeight + yOffset;
+
+          // Subtle gravitational mouse deflection
+          if (mouse.active) {
+            const dx = x - mouse.x;
+            const dy = y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 220) {
+              const force = (1 - dist / 220) * 22;
+              y += (dy / (dist || 1)) * force;
+            }
+          }
+
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+
+        // Luxurious gradient stroke for the wave ribbon
+        const grad = ctx.createLinearGradient(0, 0, width, 0);
+        grad.addColorStop(0, `rgba(${cr}, ${cg}, ${cb}, 0)`);
+        grad.addColorStop(0.2, `rgba(${cr}, ${cg}, ${cb}, ${0.05 + w * 0.03})`);
+        grad.addColorStop(0.5, `rgba(${cr}, ${cg}, ${cb}, ${0.12 + w * 0.04})`);
+        grad.addColorStop(0.8, `rgba(${cr}, ${cg}, ${cb}, ${0.06 + w * 0.03})`);
+        grad.addColorStop(1, `rgba(${cr}, ${cg}, ${cb}, 0)`);
+
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.25;
+        ctx.stroke();
+      }
+
+      // ----------------------------------------------------
+      // 2. LAYER: Precision Matrix Grid
+      // ----------------------------------------------------
+      const cols = Math.ceil(width / spacing) + 1;
+      const rows = Math.ceil(height / spacing) + 1;
+
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.018)";
+      ctx.lineWidth = 1;
+
+      // Vertical lines
+      for (let i = 0; i <= cols; i++) {
+        const x = i * spacing;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+      }
+      // Horizontal lines
+      for (let j = 0; j <= rows; j++) {
+        const y = j * spacing;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
+
+      // ----------------------------------------------------
+      // 3. LAYER: High-Speed Fiber Photons along Grid Lines
+      // ----------------------------------------------------
+      photons.forEach((p) => {
+        p.pos += p.speed;
+        const maxBound = p.axis === "h" ? width : height;
+        if (p.pos > maxBound + 120) p.pos = -120;
+        if (p.pos < -120) p.pos = maxBound + 120;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha * 0.4})`;
+        let startX, startY, endX, endY;
+
+        if (p.axis === "h") {
+          const y = (p.lineIndex % rows) * spacing;
+          startX = p.pos;
+          startY = y;
+          endX = p.pos - (p.speed > 0 ? p.len : -p.len);
+          endY = y;
+
+          const grad = ctx.createLinearGradient(startX, y, endX, y);
+          grad.addColorStop(0, `rgba(${cr}, ${cg}, ${cb}, 0.8)`);
+          grad.addColorStop(0.35, `rgba(${cr}, ${cg}, ${cb}, 0.35)`);
+          grad.addColorStop(1, `rgba(${cr}, ${cg}, ${cb}, 0)`);
+          ctx.strokeStyle = grad;
+        } else {
+          const x = (p.lineIndex % cols) * spacing;
+          startX = x;
+          startY = p.pos;
+          endX = x;
+          endY = p.pos - (p.speed > 0 ? p.len : -p.len);
+
+          const grad = ctx.createLinearGradient(x, startY, x, endY);
+          grad.addColorStop(0, `rgba(${cr}, ${cg}, ${cb}, 0.8)`);
+          grad.addColorStop(0.35, `rgba(${cr}, ${cg}, ${cb}, 0.35)`);
+          grad.addColorStop(1, `rgba(${cr}, ${cg}, ${cb}, 0)`);
+          ctx.strokeStyle = grad;
+        }
+
+        ctx.lineWidth = 1.6;
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+
+        // High-energy photon head particle
+        ctx.beginPath();
+        ctx.arc(startX, startY, 2, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.shadowColor = `rgb(${cr}, ${cg}, ${cb})`;
+        ctx.shadowBlur = 9;
         ctx.fill();
+        ctx.shadowBlur = 0;
       });
 
-      animationFrameId = requestAnimationFrame(render);
+      // ----------------------------------------------------
+      // 4. LAYER: Interactive Node Synapses & Gravitational Flare
+      // ----------------------------------------------------
+      const activePoints = [];
+      for (let i = 0; i <= cols; i++) {
+        for (let j = 0; j <= rows; j++) {
+          const px = i * spacing;
+          const py = j * spacing;
+
+          let alpha = 0.09;
+          let radius = 1;
+
+          if (mouse.active) {
+            const dx = px - mouse.x;
+            const dy = py - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < mouse.radius) {
+              const intensity = 1 - dist / mouse.radius;
+              alpha = 0.15 + intensity * 0.75;
+              radius = 1 + intensity * 2.2;
+              activePoints.push({ x: px, y: py, dist });
+            }
+          }
+
+          ctx.beginPath();
+          ctx.arc(px, py, radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${cr}, ${cg}, ${cb}, ${alpha})`;
+          ctx.fill();
+        }
+      }
+
+      // Connect cursor to closest 3 grid intersections (Synaptic Web)
+      if (mouse.active && activePoints.length > 0) {
+        activePoints.sort((a, b) => a.dist - b.dist);
+        const nearest = activePoints.slice(0, 4);
+
+        nearest.forEach((pt) => {
+          const factor = 1 - pt.dist / mouse.radius;
+          ctx.beginPath();
+          ctx.moveTo(mouse.x, mouse.y);
+          ctx.lineTo(pt.x, pt.y);
+          ctx.strokeStyle = `rgba(${cr}, ${cg}, ${cb}, ${factor * 0.3})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        });
+      }
+
+      animId = requestAnimationFrame(render);
     };
 
     render();
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resize);
     };
-  }, []);
+  }, [activeStep]);
 
   const handleStepClick = (idx) => {
     setActiveStep(idx);
@@ -268,35 +489,46 @@ export default function CinematicWorkflow() {
   };
 
   const current = stages[activeStep];
+  const currentRgb = stageColors[activeStep].join(", ");
 
   return (
     <section
+      ref={sectionRef}
       id="workflow"
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => {
+        if (mouseRef.current) mouseRef.current.active = true;
+      }}
+      onMouseLeave={() => {
+        if (mouseRef.current) mouseRef.current.active = false;
+        setMousePos({ x: -2000, y: -2000 });
+      }}
       className="w-full py-28 px-4 sm:px-8 lg:px-12 bg-[#000000] text-white relative overflow-hidden border-b border-[#262626]"
       data-component="@components/CinematicWorkflow.jsx"
     >
-      {/* Dynamic Background Glow centered behind active stage */}
+      {/* 1. Interactive Cursor Tracking Spotlight (High-End Subtle Ambient Glow) */}
       <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[550px] rounded-full blur-[140px] pointer-events-none transition-all duration-1000 opacity-20"
+        className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(750px circle at ${mousePos.x}px ${mousePos.y}px, rgba(${currentRgb}, 0.05), transparent 70%)`,
+        }}
+      />
+
+      {/* 2. Dynamic Stage-Synchronized Volumetric Aura */}
+      <div
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1300px] h-[600px] rounded-full blur-[160px] pointer-events-none transition-all duration-1000 opacity-25"
         style={{
           background: `radial-gradient(circle, ${current.accentGlow} 0%, rgba(0,0,0,0) 70%)`,
         }}
       />
 
-      {/* Cybernetic grid overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
+      {/* 3. Deep Cinematic Vignette (Preserves Pure OLED Black Edges & Contrast) */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_90%_90%_at_50%_50%,transparent_35%,#000000_98%)]" />
 
-      {/* Background photon canvas */}
+      {/* 4. Canvas Engine: Fiber Photons, Precision Matrix Grid & Fluid Wave Caustics */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-60"
+        className="absolute inset-0 w-full h-full pointer-events-none z-0"
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
