@@ -16,7 +16,11 @@ export const metadata = {
   description:
     "From competitor intelligence to market opportunities, building strategies and creating campaigns — Okiza brings your entire growth workflow into one intelligent platform.",
   icons: {
-    icon: "/logo-white.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
   },
 };
 

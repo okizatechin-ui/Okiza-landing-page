@@ -9,6 +9,11 @@ export default function OkizaLogo({
       ? "/logo-black.png"
       : "/logo-white.png";
 
+  const shadowClass =
+    variant === "black"
+      ? ""
+      : "drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]";
+
   return (
     <div
       className={`inline-flex items-center justify-center shrink-0 ${className}`}
@@ -19,7 +24,7 @@ export default function OkizaLogo({
         alt={alt}
         width={size}
         height={size}
-        className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(255,255,255,0.25)]"
+        className={`w-full h-full object-contain filter ${shadowClass}`}
       />
     </div>
   );
