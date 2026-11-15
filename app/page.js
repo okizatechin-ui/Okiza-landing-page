@@ -1,11 +1,11 @@
 import NavBar from "@/components/NavBar";
 import OkizaHeroSection from "@/components/OkizaHeroSection";
+import CinematicWorkflow from "@/components/CinematicWorkflow";
 import PublishStackSection from "@/components/PublishStackSection";
 import ImpactMetrics from "@/components/ImpactMetrics";
 import CapabilitiesSection from "@/components/CapabilitiesSection";
 import ProductShowcaseSection from "@/components/ProductShowcaseSection";
 import CompetitiveSection from "@/components/CompetitiveSection";
-import WorkflowSection from "@/components/WorkflowSection";
 import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
@@ -24,6 +24,9 @@ export default function Home() {
         {/* Hero Section: Meet Okiza, the AI CMO */}
         <OkizaHeroSection />
 
+        {/* Cinematic Autonomous Workflow Animation */}
+        <CinematicWorkflow />
+
         {/* Step 3: Publish & Stack Flow Architecture */}
         <PublishStackSection />
 
@@ -38,9 +41,6 @@ export default function Home() {
 
         {/* In-depth Competitive Intelligence Matrix */}
         <CompetitiveSection />
-
-        {/* Complete 6-Step Closed-Loop Growth Workflow */}
-        <WorkflowSection />
 
         {/* Pricing & ROI Tiering */}
         <PricingSection />
