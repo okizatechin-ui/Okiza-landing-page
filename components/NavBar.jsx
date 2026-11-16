@@ -373,7 +373,7 @@ export default function NavBar() {
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="transition-transform group-hover:scale-105">
-            <OkizaLogo size={32} variant="white" />
+            <OkizaLogo size={42} variant="white" />
           </div>
           <span className="font-semibold tracking-tight text-[#ffffff] text-xl font-sans">
             okiza

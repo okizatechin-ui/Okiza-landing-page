@@ -229,6 +229,94 @@ export default function StackFlowDiagram({ activeIntegration = null }) {
               className="fill-none stroke-[hsl(30_9%_22%)] stroke-1"
             />
           </g>
+
+          {/* Animated pulsing light flow lines */}
+          <g>
+            <path
+              d="M232,204 C402,204 392,248 562,248"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "0s" }}
+            />
+            <path
+              d="M232,262 C402,262 392,262 562,262"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "-1.3s" }}
+            />
+            <path
+              d="M232,320 C402,320 392,276 562,276"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "-2.6s" }}
+            />
+            <path
+              d="M654,230 C824,230 750,62 920,62"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "0s" }}
+            />
+            <path
+              d="M654,236.5 C824,236.5 750,112 920,112"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "-0.45s" }}
+            />
+            <path
+              d="M654,243 C824,243 750,162 920,162"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "-0.9s" }}
+            />
+            <path
+              d="M654,249.5 C824,249.5 750,212 920,212"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "-1.35s" }}
+            />
+            <path
+              d="M654,256 C824,256 750,262 920,262"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "-1.8s" }}
+            />
+            <path
+              d="M654,262.5 C824,262.5 750,312 920,312"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "-2.25s" }}
+            />
+            <path
+              d="M654,269 C824,269 750,362 920,362"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "-2.7s" }}
+            />
+            <path
+              d="M654,275.5 C824,275.5 750,412 920,412"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "-3.15s" }}
+            />
+            <path
+              d="M654,282 C824,282 750,462 920,462"
+              strokeDasharray="3 160"
+              strokeLinecap="round"
+              className="fill-none stroke-[#e9e9eb] stroke-[1.2] opacity-90 [stroke-linecap:round] motion-reduce:hidden motion-reduce:animate-none [stroke-dasharray:3_160] animate-[landing-flow_4.5s_linear_infinite]"
+              style={{ animationDelay: "-3.6s" }}
+            />
+          </g>
         </svg>
 
         {/* LEFT COLUMN: Takes Data From */}
