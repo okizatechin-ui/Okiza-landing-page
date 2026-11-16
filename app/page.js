@@ -10,6 +10,7 @@ import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import FullPageDynamicBackground from "@/components/FullPageDynamicBackground";
 
 export default function Home() {
   return (
@@ -17,10 +18,13 @@ export default function Home() {
       className="bg-[#000000] min-h-screen text-[#ffffff] selection:bg-[#ffffff] selection:text-[#000000] relative"
       data-component="@screens/OkizaLanding.jsx"
     >
+      {/* Full-Page Dynamic Canvas Animation Engine */}
+      <FullPageDynamicBackground />
+
       {/* Top sticky navigation bar */}
       <NavBar />
 
-      <main className="flex flex-col w-full">
+      <main className="relative z-10 flex flex-col w-full">
         {/* Hero Section: Meet Okiza, the AI CMO */}
         <OkizaHeroSection />
 

@@ -7,18 +7,8 @@ import HeroDashboard from "./HeroDashboard";
 
 export default function OkizaHeroSection() {
   const [website, setWebsite] = useState("");
-  const canvasRef = useRef(null);
   const sectionRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: -2000, y: -2000 });
-
-  const mouseRef = useRef({
-    x: -2000,
-    y: -2000,
-    targetX: -2000,
-    targetY: -2000,
-    active: false,
-    radius: 170,
-  });
 
   const handleMouseMove = (e) => {
     if (!sectionRef.current) return;
@@ -26,237 +16,14 @@ export default function OkizaHeroSection() {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     setMousePos({ x, y });
-    if (mouseRef.current) {
-      mouseRef.current.targetX = x;
-      mouseRef.current.targetY = y;
-      mouseRef.current.active = true;
-    }
   };
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
-
-    let animId;
-    let width = 0;
-    let height = 0;
-    let dpr = 1;
-
-    const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = canvas.offsetWidth;
-      height = canvas.offsetHeight;
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      ctx.scale(dpr, dpr);
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const spacing = 58;
-    const photonCount = 18;
-    const photons = Array.from({ length: photonCount }, (_, i) => ({
-      axis: i % 2 === 0 ? "h" : "v",
-      lineIndex: Math.floor(Math.random() * 35),
-      pos: Math.random() * 2000,
-      speed: (Math.random() * 1.3 + 0.8) * (Math.random() > 0.5 ? 1 : -1),
-      len: Math.random() * 45 + 25,
-    }));
-
-    let time = 0;
-
-    const render = () => {
-      time += 1;
-      ctx.clearRect(0, 0, width, height);
-
-      const mouse = mouseRef.current;
-      mouse.x += (mouse.targetX - mouse.x) * 0.08;
-      mouse.y += (mouse.targetY - mouse.y) * 0.08;
-
-      // 1. LAYER: Ethereal Harmonic Waves
-      const waveCount = 2;
-      for (let w = 0; w < waveCount; w++) {
-        ctx.beginPath();
-        const baseHeight = height * (0.42 + w * 0.32);
-        const freq1 = 0.0016 + w * 0.0008;
-        const freq2 = 0.0038 + w * 0.0012;
-        const speedMultiplier = w === 0 ? 0.012 : -0.014;
-
-        for (let x = 0; x <= width; x += 14) {
-          const yOffset =
-            Math.sin(x * freq1 + time * speedMultiplier) * 35 +
-            Math.cos(x * freq2 - time * (speedMultiplier * 0.65)) * 22;
-
-          let y = baseHeight + yOffset;
-
-          if (mouse.active) {
-            const dx = x - mouse.x;
-            const dy = y - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 220) {
-              const force = (1 - dist / 220) * 22;
-              y += (dy / (dist || 1)) * force;
-            }
-          }
-
-          if (x === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-
-        const grad = ctx.createLinearGradient(0, 0, width, 0);
-        grad.addColorStop(0, "rgba(255, 255, 255, 0)");
-        grad.addColorStop(0.2, `rgba(56, 189, 248, ${0.05 + w * 0.03})`);
-        grad.addColorStop(0.5, `rgba(255, 255, 255, ${0.1 + w * 0.04})`);
-        grad.addColorStop(0.8, `rgba(56, 189, 248, ${0.06 + w * 0.03})`);
-        grad.addColorStop(1, "rgba(255, 255, 255, 0)");
-
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = 1.25;
-        ctx.stroke();
-      }
-
-      // 2. LAYER: Coordinate Bus Matrix Grid
-      const cols = Math.ceil(width / spacing) + 1;
-      const rows = Math.ceil(height / spacing) + 1;
-
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.02)";
-      ctx.lineWidth = 1;
-
-      for (let i = 0; i <= cols; i++) {
-        const x = i * spacing;
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        ctx.stroke();
-      }
-      for (let j = 0; j <= rows; j++) {
-        const y = j * spacing;
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        ctx.stroke();
-      }
-
-      // 3. LAYER: Traveling Fiber Photons along Grid Lines
-      photons.forEach((p) => {
-        p.pos += p.speed;
-        const maxBound = p.axis === "h" ? width : height;
-        if (p.pos > maxBound + 120) p.pos = -120;
-        if (p.pos < -120) p.pos = maxBound + 120;
-
-        ctx.beginPath();
-        let startX, startY, endX, endY;
-
-        if (p.axis === "h") {
-          const y = (p.lineIndex % rows) * spacing;
-          startX = p.pos;
-          startY = y;
-          endX = p.pos - (p.speed > 0 ? p.len : -p.len);
-          endY = y;
-
-          const grad = ctx.createLinearGradient(startX, y, endX, y);
-          grad.addColorStop(0, "rgba(255, 255, 255, 0.85)");
-          grad.addColorStop(0.35, "rgba(56, 189, 248, 0.4)");
-          grad.addColorStop(1, "rgba(255, 255, 255, 0)");
-          ctx.strokeStyle = grad;
-        } else {
-          const x = (p.lineIndex % cols) * spacing;
-          startX = x;
-          startY = p.pos;
-          endX = x;
-          endY = p.pos - (p.speed > 0 ? p.len : -p.len);
-
-          const grad = ctx.createLinearGradient(x, startY, x, endY);
-          grad.addColorStop(0, "rgba(255, 255, 255, 0.85)");
-          grad.addColorStop(0.35, "rgba(56, 189, 248, 0.4)");
-          grad.addColorStop(1, "rgba(255, 255, 255, 0)");
-          ctx.strokeStyle = grad;
-        }
-
-        ctx.lineWidth = 1.6;
-        ctx.moveTo(startX, startY);
-        ctx.lineTo(endX, endY);
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(startX, startY, 2, 0, Math.PI * 2);
-        ctx.fillStyle = "#ffffff";
-        ctx.shadowColor = "#38bdf8";
-        ctx.shadowBlur = 9;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      });
-
-      // 4. LAYER: Interactive Node Synapses around Cursor
-      const activePoints = [];
-      for (let i = 0; i <= cols; i++) {
-        for (let j = 0; j <= rows; j++) {
-          const px = i * spacing;
-          const py = j * spacing;
-
-          let alpha = 0.08;
-          let radius = 1;
-
-          if (mouse.active) {
-            const dx = px - mouse.x;
-            const dy = py - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < mouse.radius) {
-              const intensity = 1 - dist / mouse.radius;
-              alpha = 0.15 + intensity * 0.75;
-              radius = 1 + intensity * 2.2;
-              activePoints.push({ x: px, y: py, dist });
-            }
-          }
-
-          ctx.beginPath();
-          ctx.arc(px, py, radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-          ctx.fill();
-        }
-      }
-
-      if (mouse.active && activePoints.length > 0) {
-        activePoints.sort((a, b) => a.dist - b.dist);
-        const nearest = activePoints.slice(0, 4);
-
-        nearest.forEach((pt) => {
-          const factor = 1 - pt.dist / mouse.radius;
-          ctx.beginPath();
-          ctx.moveTo(mouse.x, mouse.y);
-          ctx.lineTo(pt.x, pt.y);
-          ctx.strokeStyle = `rgba(56, 189, 248, ${factor * 0.3})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        });
-      }
-
-      animId = requestAnimationFrame(render);
-    };
-
-    render();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
 
   return (
     <section
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => {
-        if (mouseRef.current) mouseRef.current.active = true;
-      }}
-      onMouseLeave={() => {
-        if (mouseRef.current) mouseRef.current.active = false;
-        setMousePos({ x: -2000, y: -2000 });
-      }}
-      className="relative w-full pt-24 md:pt-32 pb-20 px-6 md:px-12 bg-[#000000] text-center overflow-hidden"
+      onMouseLeave={() => setMousePos({ x: -2000, y: -2000 })}
+      className="relative w-full pt-24 md:pt-32 pb-20 px-6 md:px-12 bg-transparent text-center overflow-hidden"
     >
       {/* 1. Interactive Cursor Tracking Spotlight */}
       <div
@@ -267,16 +34,12 @@ export default function OkizaHeroSection() {
       />
 
       {/* 2. Volumetric Celestial Beacon (Breathing ambient glow centered on headline) */}
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] rounded-full blur-[150px] pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.11)_0%,rgba(56,189,248,0.05)_45%,transparent_70%)] animate-ambient opacity-80" />
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] rounded-full blur-[150px] pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.11)_0%,rgba(255,255,255,0.04)_45%,transparent_70%)] animate-ambient opacity-80" />
 
       {/* 3. Deep Cinematic Edge Vignette */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_90%_90%_at_50%_50%,transparent_35%,#000000_98%)]" />
 
-      {/* 4. Canvas Engine: Fiber Photons, Precision Matrix Grid & Fluid Wave Harmonics */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none z-0"
-      />
+
 
       {/* Decorative side glow bars (matching reference) */}
       <div className="absolute left-0 top-20 bottom-20 w-[3px] bg-gradient-to-b from-transparent via-[#3a3530] to-transparent opacity-50 z-10"></div>

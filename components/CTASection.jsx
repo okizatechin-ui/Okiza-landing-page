@@ -14,7 +14,7 @@ export default function CTASection() {
   };
 
   return (
-    <section className="w-full px-6 sm:px-12 md:px-20 py-20 bg-[#000000] relative overflow-hidden">
+    <section className="w-full px-6 sm:px-12 md:px-20 py-20 bg-transparent relative overflow-hidden">
       {/* Background radial gradient glow */}
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-10 pointer-events-none"

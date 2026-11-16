@@ -77,7 +77,7 @@ export default function PricingSection() {
   ];
 
   return (
-    <section id="pricing" className="w-full px-6 sm:px-12 md:px-20 py-24 bg-[#000000]">
+    <section id="pricing" className="w-full px-6 sm:px-12 md:px-20 py-24 bg-transparent">
       <div className="border-t border-[#262626] pt-20">
         <div className="flex flex-col items-center text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#383332] bg-[#1a1716] mb-4">

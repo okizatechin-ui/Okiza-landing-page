@@ -5,7 +5,7 @@ import OkizaLogo from "./OkizaLogo";
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-[#262626] bg-[#000000] text-[#a1a1aa] px-6 sm:px-12 md:px-20 py-16">
+    <footer className="w-full border-t border-[#262626] bg-transparent text-[#a1a1aa] px-6 sm:px-12 md:px-20 py-16">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {/* Brand info */}

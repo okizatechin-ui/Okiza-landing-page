@@ -23,7 +23,7 @@ export default function CapabilitiesSection({ onSelectCapability }) {
   return (
     <section
       id="capabilities"
-      className="w-full px-6 sm:px-12 md:px-20 py-24 bg-[#000000]"
+      className="w-full px-6 sm:px-12 md:px-20 py-24 bg-transparent"
       data-component="@components/CapabilitiesSection.jsx"
     >
       <div className="w-full border-t border-[#262626] pt-20">

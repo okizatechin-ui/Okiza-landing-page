@@ -45,7 +45,7 @@ export default function ImpactMetrics() {
   ];
 
   return (
-    <section className="w-full px-6 sm:px-10 lg:px-16 py-12 sm:py-16 bg-[#000000] relative overflow-hidden">
+    <section className="w-full px-6 sm:px-10 lg:px-16 py-12 sm:py-16 bg-transparent relative overflow-hidden">
       {/* Subtle ambient spotlight */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[300px] rounded-full opacity-10 pointer-events-none"

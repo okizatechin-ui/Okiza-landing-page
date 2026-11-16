@@ -49,7 +49,7 @@ export default function CompetitiveSection() {
   return (
     <section
       id="competitive"
-      className="w-full px-6 sm:px-12 md:px-20 py-20 bg-[#000000]"
+      className="w-full px-6 sm:px-12 md:px-20 py-20 bg-transparent"
       data-component="@components/CompetitiveSection.jsx"
     >
       <div className="border-t border-[#262626] pt-20">

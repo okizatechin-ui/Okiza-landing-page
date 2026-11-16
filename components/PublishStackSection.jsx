@@ -6,7 +6,7 @@ import { ArrowRight, Layers } from "lucide-react";
 
 export default function PublishStackSection() {
   return (
-    <section className="w-full py-24 px-6 md:px-12 bg-[#000000] border-b border-[#262626] overflow-hidden">
+    <section className="w-full py-24 px-6 md:px-12 bg-[#000000] border-b border-[#262626] relative z-10 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Top Two-Column Header matching the user's screenshot */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-start">

@@ -30,7 +30,7 @@ export default function FAQSection() {
   ];
 
   return (
-    <section id="faq" className="w-full px-6 sm:px-12 md:px-20 py-20 bg-[#000000]">
+    <section id="faq" className="w-full px-6 sm:px-12 md:px-20 py-20 bg-transparent">
       <div className="border-t border-[#262626] pt-20 max-w-4xl mx-auto">
         <div className="flex flex-col items-center text-center mb-14">
           <p className="text-xs font-medium tracking-widest text-[#ffffff] uppercase mb-4">
