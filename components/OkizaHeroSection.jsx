@@ -23,7 +23,7 @@ export default function OkizaHeroSection() {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setMousePos({ x: -2000, y: -2000 })}
-      className="relative w-full pt-24 md:pt-32 pb-20 px-6 md:px-12 bg-transparent text-center overflow-hidden"
+      className="relative w-full pt-10 md:pt-12 pb-20 px-6 md:px-12 bg-transparent text-center overflow-hidden"
     >
       {/* 1. Interactive Cursor Tracking Spotlight */}
       <div
@@ -34,16 +34,14 @@ export default function OkizaHeroSection() {
       />
 
       {/* 2. Volumetric Celestial Beacon (Breathing ambient glow centered on headline) */}
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] rounded-full blur-[150px] pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.11)_0%,rgba(255,255,255,0.04)_45%,transparent_70%)] animate-ambient opacity-80" />
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] rounded-full blur-[150px] pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.11)_0%,rgba(255,255,255,0.04)_45%,transparent_70%)] animate-ambient opacity-80" />
 
       {/* 3. Deep Cinematic Edge Vignette */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_90%_90%_at_50%_50%,transparent_35%,#000000_98%)]" />
 
-
-
       {/* Decorative side glow bars (matching reference) */}
-      <div className="absolute left-0 top-20 bottom-20 w-[3px] bg-gradient-to-b from-transparent via-[#3a3530] to-transparent opacity-50 z-10"></div>
-      <div className="absolute right-0 top-20 bottom-20 w-[3px] bg-gradient-to-b from-transparent via-[#3a3530] to-transparent opacity-50 z-10"></div>
+      <div className="absolute left-0 top-10 bottom-20 w-[3px] bg-gradient-to-b from-transparent via-[#3a3530] to-transparent opacity-50 z-10"></div>
+      <div className="absolute right-0 top-10 bottom-20 w-[3px] bg-gradient-to-b from-transparent via-[#3a3530] to-transparent opacity-50 z-10"></div>
 
       <div className="relative max-w-4xl mx-auto z-10 flex flex-col items-center">
         {/* Top Pill Badge: NEW — OKIZA MCP | Run marketing from any chat → */}
