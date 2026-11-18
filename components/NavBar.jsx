@@ -43,20 +43,8 @@ export default function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null); // "usecases" | "agents" | "integrations" | "resources"
   const [activeStoryIdx, setActiveStoryIdx] = useState(0);
-  const [isScrolled, setIsScrolled] = useState(false);
   const navRef = useRef(null);
   const timeoutRef = useRef(null);
-
-  // Track scroll position to toggle floating navbar transparency
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const customerStories = [
     {
@@ -375,21 +363,13 @@ export default function NavBar() {
   const story = customerStories[activeStoryIdx];
 
   return (
-    <header
+    <nav
       ref={navRef}
-      className="sticky top-0 z-50 w-full px-3 sm:px-6 lg:px-8 pt-3 sm:pt-4 transition-all duration-300 pointer-events-none"
+      className="sticky top-0 z-50 w-full border-b border-[#262626] bg-[#000000]/95 backdrop-blur-md transition-all"
+      style={{ borderColor: "rgba(38, 38, 38, 0.9)" }}
       data-component="@components/NavBar.jsx"
     >
-      <nav
-        className={`pointer-events-auto max-w-7xl mx-auto transition-all duration-300 ${
-          mobileMenuOpen ? "rounded-2xl" : "rounded-2xl md:rounded-full"
-        } ${
-          isScrolled || mobileMenuOpen
-            ? "bg-[#09090b] border border-[#262626] shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
-            : "bg-[#000000]/35 backdrop-blur-md border border-white/10 shadow-sm"
-        }`}
-      >
-        <div className="flex items-center justify-between px-5 sm:px-6 md:px-8 py-3">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 py-3.5">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="transition-transform group-hover:scale-105">
@@ -846,7 +826,7 @@ export default function NavBar() {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden w-full bg-[#09090b] border-t border-[#262626] px-6 py-6 flex flex-col gap-4 rounded-b-2xl shadow-2xl max-h-[85vh] overflow-y-auto">
+        <div className="md:hidden w-full bg-[#000000] border-b border-[#262626] px-6 py-6 flex flex-col gap-4 shadow-2xl max-h-[85vh] overflow-y-auto">
           <span className="text-xs font-semibold text-[#71717a] uppercase tracking-wider">
             Agents
           </span>
@@ -971,6 +951,5 @@ export default function NavBar() {
         </div>
       )}
     </nav>
-  </header>
-);
+  );
 }

@@ -10,7 +10,7 @@ export default function FullPageDynamicBackground() {
     targetX: -2000,
     targetY: -2000,
     active: false,
-    radius: 200,
+    radius: 190,
   });
   const [mousePos, setMousePos] = useState({ x: -2000, y: -2000 });
 
@@ -60,20 +60,18 @@ export default function FullPageDynamicBackground() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Pure Running Dots (horizontal and vertical running photons)
-    const dotCount = 42;
-    const dots = Array.from({ length: dotCount }, (_, i) => {
-      const isHorizontal = i % 2 === 0;
-      return {
-        axis: isHorizontal ? "h" : "v",
-        pos: Math.random() * (isHorizontal ? window.innerWidth : window.innerHeight),
-        crossPos: Math.random() * (isHorizontal ? window.innerHeight : window.innerWidth),
-        speed: (Math.random() * 1.4 + 0.8) * (Math.random() > 0.5 ? 1 : -1),
-        radius: Math.random() * 1.2 + 1.2, // 1.2px to 2.4px
-        baseAlpha: Math.random() * 0.45 + 0.35, // 0.35 to 0.8
-      };
-    });
+    // Grid spacing & Traveling Fiber Photons (Running Dots with Laser Trails as seen in reference image)
+    const spacing = 60;
+    const photonCount = 28;
+    const photons = Array.from({ length: photonCount }, (_, i) => ({
+      axis: i % 2 === 0 ? "h" : "v",
+      lineIndex: Math.floor(Math.random() * 50),
+      pos: Math.random() * 2500,
+      speed: (Math.random() * 1.3 + 0.8) * (Math.random() > 0.5 ? 1 : -1),
+      len: Math.random() * 45 + 35, // Laser tail length (35px to 80px)
+    }));
 
+    let time = 0;
     let lastScrollY = window.scrollY || 0;
     let scrollVelocity = 0;
 
@@ -85,6 +83,7 @@ export default function FullPageDynamicBackground() {
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     const render = () => {
+      time += 1;
       scrollVelocity *= 0.92;
       ctx.clearRect(0, 0, width, height);
 
@@ -92,47 +91,129 @@ export default function FullPageDynamicBackground() {
       mouse.x += (mouse.targetX - mouse.x) * 0.08;
       mouse.y += (mouse.targetY - mouse.y) * 0.08;
 
-      // Render ONLY running dots
-      dots.forEach((dot) => {
-        dot.pos += dot.speed + (dot.axis === "v" ? scrollVelocity : 0);
+      // 1. LAYER: Subtle Harmonic Wave Curves (Topological Caustics as seen in screenshot)
+      const waveCount = 2;
+      for (let w = 0; w < waveCount; w++) {
+        ctx.beginPath();
+        const baseHeight = height * (0.32 + w * 0.36);
+        const freq1 = 0.0016 + w * 0.0006;
+        const freq2 = 0.0034 + w * 0.0008;
+        const speedMultiplier = w === 0 ? 0.008 : -0.01;
 
-        const maxBound = dot.axis === "h" ? width : height;
-        const crossBound = dot.axis === "h" ? height : width;
+        for (let x = 0; x <= width; x += 16) {
+          const yOffset =
+            Math.sin(x * freq1 + time * speedMultiplier + (lastScrollY * 0.0008)) * 34 +
+            Math.cos(x * freq2 - time * (speedMultiplier * 0.6)) * 20;
 
-        if (dot.pos > maxBound + 20) {
-          dot.pos = -20;
-          dot.crossPos = Math.random() * crossBound;
-        } else if (dot.pos < -20) {
-          dot.pos = maxBound + 20;
-          dot.crossPos = Math.random() * crossBound;
+          let y = baseHeight + yOffset;
+
+          if (mouse.active) {
+            const dx = x - mouse.x;
+            const dy = y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 200) {
+              const force = (1 - dist / 200) * 18;
+              y += (dy / (dist || 1)) * force;
+            }
+          }
+
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
         }
 
-        const x = dot.axis === "h" ? dot.pos : dot.crossPos;
-        const y = dot.axis === "h" ? dot.crossPos : dot.pos;
+        const grad = ctx.createLinearGradient(0, 0, width, 0);
+        grad.addColorStop(0, "rgba(255, 255, 255, 0)");
+        grad.addColorStop(0.25, `rgba(255, 255, 255, ${0.035 + w * 0.015})`);
+        grad.addColorStop(0.5, `rgba(255, 255, 255, ${0.07 + w * 0.02})`);
+        grad.addColorStop(0.75, `rgba(255, 255, 255, ${0.04 + w * 0.015})`);
+        grad.addColorStop(1, "rgba(255, 255, 255, 0)");
 
-        let alpha = dot.baseAlpha;
-        let radius = dot.radius;
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.1;
+        ctx.stroke();
+      }
 
-        if (mouse.active) {
-          const dx = x - mouse.x;
-          const dy = y - mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+      // 2. LAYER: Coordinate Matrix Grid Lines (Faint, high-precision dark grid)
+      const cols = Math.ceil(width / spacing) + 1;
+      const rows = Math.ceil(height / spacing) + 1;
 
-          if (dist < mouse.radius) {
-            const proximity = 1 - dist / mouse.radius;
-            alpha = Math.min(1, alpha + proximity * 0.5);
-            radius = dot.radius + proximity * 1.0;
-          }
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.022)";
+      ctx.lineWidth = 1;
+
+      for (let i = 0; i <= cols; i++) {
+        const x = i * spacing;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+      }
+      for (let j = 0; j <= rows; j++) {
+        const y = j * spacing;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
+
+      // 3. LAYER: Running Dots with Laser Beam Trails along Grid Lines (Exactly matching user screenshot)
+      photons.forEach((p) => {
+        p.pos += p.speed + (p.axis === "v" ? scrollVelocity : 0);
+        const maxBound = p.axis === "h" ? width : height;
+        if (p.pos > maxBound + 120) {
+          p.pos = -120;
+          p.lineIndex = Math.floor(Math.random() * (p.axis === "h" ? rows : cols));
+        }
+        if (p.pos < -120) {
+          p.pos = maxBound + 120;
+          p.lineIndex = Math.floor(Math.random() * (p.axis === "h" ? rows : cols));
         }
 
         ctx.beginPath();
-        ctx.arc(x, y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-        ctx.shadowColor = `rgba(255, 255, 255, ${alpha * 0.8})`;
-        ctx.shadowBlur = 8;
+        let startX, startY, endX, endY;
+
+        if (p.axis === "h") {
+          const y = (p.lineIndex % rows) * spacing;
+          startX = p.pos;
+          startY = y;
+          endX = p.pos - (p.speed > 0 ? p.len : -p.len);
+          endY = y;
+
+          const grad = ctx.createLinearGradient(startX, y, endX, y);
+          grad.addColorStop(0, "rgba(255, 255, 255, 0.85)");
+          grad.addColorStop(0.35, "rgba(255, 255, 255, 0.32)");
+          grad.addColorStop(1, "rgba(255, 255, 255, 0)");
+          ctx.strokeStyle = grad;
+        } else {
+          const x = (p.lineIndex % cols) * spacing;
+          startX = x;
+          startY = p.pos;
+          endX = x;
+          endY = p.pos - (p.speed > 0 ? p.len : -p.len);
+
+          const grad = ctx.createLinearGradient(x, startY, x, endY);
+          grad.addColorStop(0, "rgba(255, 255, 255, 0.85)");
+          grad.addColorStop(0.35, "rgba(255, 255, 255, 0.32)");
+          grad.addColorStop(1, "rgba(255, 255, 255, 0)");
+          ctx.strokeStyle = grad;
+        }
+
+        ctx.lineWidth = 1.4;
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+
+        // Luminous glowing running dot head
+        ctx.beginPath();
+        ctx.arc(startX, startY, 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.shadowColor = "rgba(255, 255, 255, 0.95)";
+        ctx.shadowBlur = 9;
         ctx.fill();
         ctx.shadowBlur = 0;
       });
+
+      // NOTE: Layer 4 (static dot matrix and mouse connecting spiderweb strings) is intentionally EXCLUDED
+      // to keep the background clean, cinematic, and focused purely on the running dots.
 
       animId = requestAnimationFrame(render);
     };
@@ -162,7 +243,7 @@ export default function FullPageDynamicBackground() {
       {/* 3. Deep Cinematic Edge Vignette */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_95%_95%_at_50%_50%,transparent_40%,#000000_98%)]" />
 
-      {/* 4. Master Full-Page Canvas Engine (Pure Running Dots) */}
+      {/* 4. Master Full-Page Canvas Engine */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-none"
