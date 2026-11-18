@@ -292,11 +292,8 @@ export default function CinematicWorkflow() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.08] max-w-4xl mb-6">
-            Insights are useful.{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-300 via-white to-zinc-500">
-              Execution creates compounding growth.
-            </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.08] max-w-5xl mb-6">
+            Insights are useful.<span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-300 via-white to-zinc-500">Execution creates compounding growth.</span>
           </h2>
 
           <p className="text-base sm:text-lg text-zinc-400 max-w-2xl leading-relaxed">

@@ -198,8 +198,7 @@ export default function WorkflowSection() {
           </div>
 
           <h2 className="font-semibold text-white mb-4 tracking-tight text-3xl sm:text-4xl md:text-5xl leading-[1.12] max-w-[700px]">
-            Insights are useful.{" "}
-            <span className="text-zinc-400">Execution creates growth.</span>
+            Insights are useful.<span className="text-zinc-400">Execution creates growth.</span>
           </h2>
 
           <p className="text-sm sm:text-base text-zinc-400 max-w-[540px] leading-relaxed mb-6">
