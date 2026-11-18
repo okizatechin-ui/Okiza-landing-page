@@ -23,7 +23,7 @@ export default function CTASection() {
         }}
       />
 
-      <div className="max-w-4xl mx-auto rounded-2xl border border-[#262626] bg-gradient-to-b from-[#111111] to-[#070707] px-6 pt-8 pb-5 sm:px-12 sm:pt-10 sm:pb-6 text-center relative z-10 shadow-2xl">
+      <div className="max-w-4xl mx-auto rounded-2xl border border-[#262626] bg-gradient-to-b from-[#111111] to-[#070707] px-6 pt-8 pb-4 sm:px-12 sm:pt-10 sm:pb-4 text-center relative z-10 shadow-2xl">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffffff]/10 text-[#ffffff] text-xs font-semibold mb-6 border border-[#ffffff]/20">
           <Sparkles className="w-3.5 h-3.5 text-[#ffffff]" />
           <span>Start Your Free 14-Day Growth Trial</span>
