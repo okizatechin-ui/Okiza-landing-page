@@ -1,3 +1,5 @@
+"use client";
+
 import NavBar from "@/components/NavBar";
 import OkizaHeroSection from "@/components/OkizaHeroSection";
 import CinematicWorkflow from "@/components/CinematicWorkflow";
@@ -11,11 +13,18 @@ import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import FullPageDynamicBackground from "@/components/FullPageDynamicBackground";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Home() {
+  const { theme } = useTheme();
+
   return (
     <div
-      className="bg-[#000000] min-h-screen text-[#ffffff] selection:bg-[#ffffff] selection:text-[#000000] relative"
+      className={`min-h-screen relative transition-colors duration-200 ${
+        theme === "light"
+          ? "bg-[#ffffff] text-[#09090b] selection:bg-[#09090b] selection:text-[#ffffff]"
+          : "bg-[#000000] text-[#ffffff] selection:bg-[#ffffff] selection:text-[#000000]"
+      }`}
       data-component="@screens/OkizaLanding.jsx"
     >
       {/* Full-Page Dynamic Canvas Animation Engine */}

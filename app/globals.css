@@ -21,6 +21,179 @@ html, body {
   color-scheme: dark;
 }
 
+/* ========================================================
+   LIGHT MODE DESIGN SYSTEM
+   ======================================================== */
+html.light {
+  --background: #ffffff;
+  --foreground: #09090b;
+  --color-background: #ffffff;
+  --color-foreground: #09090b;
+  --color-border: #e4e4e7;
+  --color-card: #ffffff;
+  --color-primary: #09090b;
+  --color-primary-foreground: #ffffff;
+  --color-muted-foreground: #52525b;
+  color-scheme: light;
+}
+
+html.light,
+html.light body {
+  background-color: #ffffff !important;
+  color: #09090b !important;
+}
+
+/* Backgrounds in Light Mode */
+html.light .bg-\[\#000000\],
+html.light .bg-\[\#050508\],
+html.light .bg-\[\#060608\],
+html.light .bg-\[\#070709\],
+html.light .bg-\[\#08080c\],
+html.light .bg-\[\#09090b\],
+html.light .bg-\[\#0a0a0e\],
+html.light .bg-\[\#0b0b0d\],
+html.light .bg-\[\#0b0b0f\],
+html.light .bg-\[\#0c0a09\],
+html.light .bg-\[\#0e0e11\],
+html.light .bg-\[\#0e0e12\],
+html.light .bg-\[\#0f0e0d\],
+html.light .bg-\[\#101014\],
+html.light .bg-\[\#111111\],
+html.light .bg-\[\#111114\],
+html.light .bg-\[\#111115\],
+html.light .bg-\[\#121110\],
+html.light .bg-\[\#121212\],
+html.light .bg-\[\#121215\],
+html.light .bg-\[\#121217\],
+html.light .bg-\[\#141211\],
+html.light .bg-\[\#141414\] {
+  background-color: #ffffff !important;
+}
+
+html.light .bg-\[\#141418\],
+html.light .bg-\[\#14141a\],
+html.light .bg-\[\#161514\],
+html.light .bg-\[\#161619\],
+html.light .bg-\[\#171413\],
+html.light .bg-\[\#18181b\],
+html.light .bg-\[\#18181c\],
+html.light .bg-\[\#1a1716\],
+html.light .bg-\[\#1a1817\],
+html.light .bg-\[\#1a1a1c\],
+html.light .bg-\[\#1a1a1d\],
+html.light .bg-\[\#1c1917\],
+html.light .bg-\[\#1c1a19\],
+html.light .bg-\[\#1c1c1c\],
+html.light .bg-\[\#1c1c1f\],
+html.light .bg-\[\#1c1c20\] {
+  background-color: #f8fafc !important;
+}
+
+html.light .bg-\[\#1f1f22\],
+html.light .bg-\[\#1f1f23\],
+html.light .bg-\[\#222228\],
+html.light .bg-\[\#242120\],
+html.light .bg-\[\#242427\],
+html.light .bg-\[\#262626\],
+html.light .bg-\[\#27272a\],
+html.light .bg-\[\#292524\],
+html.light .bg-\[\#2c2826\],
+html.light .bg-\[\#383332\] {
+  background-color: #f4f4f5 !important;
+}
+
+/* Gradients in Light Mode */
+html.light .from-\[\#111111\] {
+  --tw-gradient-from: #ffffff !important;
+}
+html.light .to-\[\#070707\] {
+  --tw-gradient-to: #fafafa !important;
+}
+html.light .from-\[\#18181b\] {
+  --tw-gradient-from: #f4f4f5 !important;
+}
+html.light .to-\[\#0d0d0f\] {
+  --tw-gradient-to: #ffffff !important;
+}
+
+/* Text in Light Mode */
+html.light .text-\[\#ffffff\],
+html.light .text-\[\#f4f4f5\],
+html.light .text-\[\#ededed\],
+html.light .text-\[\#d4d4d8\],
+html.light .text-\[\#d6d3d1\] {
+  color: #09090b !important;
+}
+
+html.light .text-\[\#a1a1aa\],
+html.light .text-\[\#a8a29e\] {
+  color: #52525b !important;
+}
+
+/* Borders in Light Mode */
+html.light .border-\[\#141211\],
+html.light .border-\[\#1f1f23\],
+html.light .border-\[\#202024\],
+html.light .border-\[\#222225\],
+html.light .border-\[\#222226\],
+html.light .border-\[\#262626\],
+html.light .border-\[\#27272a\],
+html.light .border-\[\#27272c\],
+html.light .border-\[\#292524\],
+html.light .border-\[\#2a2a2d\],
+html.light .border-\[\#2e2e32\],
+html.light .border-\[\#333333\],
+html.light .border-\[\#333336\],
+html.light .border-\[\#383332\],
+html.light .border-\[\#383838\],
+html.light .border-\[\#3f3f46\],
+html.light .border-\[\#404040\],
+html.light .border-\[\#44403c\],
+html.light .border-\[\#52525b\],
+html.light .border-\[\#57534e\],
+html.light .border-\[\#78716c\] {
+  border-color: #e4e4e7 !important;
+}
+
+html.light .border-white\/10,
+html.light .border-white\/\[0\.08\] {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Light Mode Input elements */
+html.light input.bg-\[\#000000\],
+html.light input {
+  background-color: #ffffff !important;
+  color: #09090b !important;
+  border-color: #e4e4e7 !important;
+}
+
+/* Primary Action Buttons in Light Mode */
+html.light button.bg-\[\#ffffff\],
+html.light a.bg-\[\#ffffff\] {
+  background-color: #09090b !important;
+  color: #ffffff !important;
+}
+
+html.light button.bg-\[\#ffffff\] *,
+html.light a.bg-\[\#ffffff\] * {
+  color: #ffffff !important;
+}
+
+html.light button.bg-\[\#ffffff\]:hover,
+html.light a.bg-\[\#ffffff\]:hover {
+  background-color: #27272a !important;
+}
+
+/* Shadows in Light Mode */
+html.light .shadow-2xl {
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light .shadow-xl {
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.05) !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

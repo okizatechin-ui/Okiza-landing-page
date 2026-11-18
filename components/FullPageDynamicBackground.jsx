@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function FullPageDynamicBackground() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const canvasRef = useRef(null);
   const mouseRef = useRef({
     x: -2000,
@@ -39,6 +42,7 @@ export default function FullPageDynamicBackground() {
   }, []);
 
   useEffect(() => {
+    if (isLight) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { alpha: true });
@@ -79,16 +83,20 @@ export default function FullPageDynamicBackground() {
       const currentCols = cols();
       const currentRows = rows();
 
-      // Interactive Matrix Dots (Turns Grey when mouse moves over)
+      // Interactive Matrix Dots (Adapts to light & dark theme)
       // (NO spiderweb lines, NO running dots)
+      const isLightMode = document.documentElement.classList.contains("light");
+
       for (let i = 0; i <= currentCols; i++) {
         for (let j = 0; j <= currentRows; j++) {
           const px = i * spacing;
           const py = j * spacing;
 
-          let alpha = 0.075;
+          let alpha = isLightMode ? 0.08 : 0.075;
           let radius = 1;
-          let dotColor = `rgba(161, 161, 170, ${alpha})`;
+          let dotColor = isLightMode
+            ? `rgba(0, 0, 0, ${alpha})`
+            : `rgba(161, 161, 170, ${alpha})`;
           let glow = 0;
 
           if (mouse.active) {
@@ -98,12 +106,18 @@ export default function FullPageDynamicBackground() {
 
             if (dist < mouse.radius) {
               const proximity = 1 - dist / mouse.radius;
-              alpha = 0.16 + proximity * 0.78;
               radius = 1 + proximity * 2.1;
               glow = proximity;
 
-              const shade = Math.floor(165 + proximity * 65); // 165 to 230 grey shade
-              dotColor = `rgba(${shade}, ${shade}, ${shade + 4}, ${alpha})`;
+              if (isLightMode) {
+                alpha = 0.2 + proximity * 0.55;
+                const shade = Math.floor(65 - proximity * 45); // darker crisp grey on hover
+                dotColor = `rgba(${shade}, ${shade}, ${shade}, ${alpha})`;
+              } else {
+                alpha = 0.16 + proximity * 0.78;
+                const shade = Math.floor(165 + proximity * 65); // 165 to 230 grey shade
+                dotColor = `rgba(${shade}, ${shade}, ${shade + 4}, ${alpha})`;
+              }
             }
           }
 
@@ -112,9 +126,14 @@ export default function FullPageDynamicBackground() {
           ctx.fillStyle = dotColor;
 
           if (glow > 0.22) {
-            const glowShade = Math.floor(180 + glow * 45);
-            ctx.shadowColor = `rgba(${glowShade}, ${glowShade}, ${glowShade}, ${glow * 0.75})`;
-            ctx.shadowBlur = glow * 8;
+            if (isLightMode) {
+              ctx.shadowColor = `rgba(0, 0, 0, ${glow * 0.25})`;
+              ctx.shadowBlur = glow * 6;
+            } else {
+              const glowShade = Math.floor(180 + glow * 45);
+              ctx.shadowColor = `rgba(${glowShade}, ${glowShade}, ${glowShade}, ${glow * 0.75})`;
+              ctx.shadowBlur = glow * 8;
+            }
           }
 
           ctx.fill();
@@ -131,11 +150,15 @@ export default function FullPageDynamicBackground() {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
     };
-  }, []);
+  }, [isLight]);
+
+  if (isLight) {
+    return <div className="fixed inset-0 pointer-events-none z-0 bg-[#ffffff]" />;
+  }
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#000000]">
-      {/* 1. Interactive Cursor Tracking Neutral Soft Grey Spotlight */}
+      {/* 1. Interactive Cursor Tracking Neutral Soft Spotlight */}
       <div
         className="absolute inset-0 pointer-events-none transition-opacity duration-300"
         style={{

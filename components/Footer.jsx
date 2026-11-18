@@ -3,10 +3,32 @@
 import Link from "next/link";
 import { Sun, Moon } from "lucide-react";
 import OkizaLogo from "./OkizaLogo";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Footer() {
+  const { theme, setTheme } = useTheme();
+  const isLight = theme === "light";
+
+  const linkClass = isLight
+    ? "text-[13px] text-zinc-600 hover:text-black transition-colors leading-relaxed"
+    : "text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed";
+
+  const headerClass = `text-[11px] font-mono tracking-widest uppercase font-semibold mb-4 block ${
+    isLight ? "text-zinc-400" : "text-[#71717a]"
+  }`;
+
+  const headerMtClass = `text-[11px] font-mono tracking-widest uppercase font-semibold mt-8 mb-4 block ${
+    isLight ? "text-zinc-400" : "text-[#71717a]"
+  }`;
+
   return (
-    <footer className="relative z-10 w-full border-t border-[#1f1f23] bg-[#000000] text-[#a1a1aa] px-6 sm:px-12 md:px-16 pt-16 pb-6 mt-6">
+    <footer
+      className={`relative z-10 w-full border-t transition-colors duration-200 px-6 sm:px-12 md:px-16 pt-16 pb-6 mt-6 ${
+        isLight
+          ? "border-zinc-200 bg-white text-zinc-600"
+          : "border-[#1f1f23] bg-[#000000] text-[#a1a1aa]"
+      }`}
+    >
       <div className="max-w-7xl mx-auto">
         {/* Main Grid: Brand Column + 4 Link Columns */}
         <div className="grid grid-cols-2 md:grid-cols-12 gap-8 lg:gap-12 mb-12">
@@ -14,25 +36,25 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-4 flex flex-col gap-5">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group w-fit">
-              <OkizaLogo size={28} variant="white" />
-              <span className="font-semibold text-xl text-[#ffffff] tracking-tight">
+              <OkizaLogo size={28} variant={isLight ? "black" : "white"} />
+              <span className={`font-semibold text-xl tracking-tight ${isLight ? "text-zinc-950" : "text-[#ffffff]"}`}>
                 Okiza
               </span>
             </Link>
 
             {/* Tagline */}
-            <p className="text-sm text-[#a1a1aa] max-w-xs leading-relaxed">
+            <p className={`text-sm max-w-xs leading-relaxed ${isLight ? "text-zinc-600" : "text-[#a1a1aa]"}`}>
               Your AI CMO for growth and marketing.
             </p>
 
             {/* Social Icons Row */}
-            <div className="flex items-center gap-4 text-[#a1a1aa]">
+            <div className={`flex items-center gap-4 ${isLight ? "text-zinc-500" : "text-[#a1a1aa]"}`}>
               {/* X (Twitter) */}
               <a
                 href="https://x.com"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-[#ffffff] transition-colors"
+                className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}
                 aria-label="X (formerly Twitter)"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -45,7 +67,7 @@ export default function Footer() {
                 href="https://github.com"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-[#ffffff] transition-colors"
+                className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}
                 aria-label="GitHub"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -58,7 +80,7 @@ export default function Footer() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-[#ffffff] transition-colors"
+                className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}
                 aria-label="LinkedIn"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -69,17 +91,19 @@ export default function Footer() {
 
             {/* Request AI Summary of Okiza */}
             <div className="flex flex-col gap-2.5 mt-2">
-              <span className="text-[10px] font-mono tracking-widest text-[#71717a] uppercase font-semibold">
+              <span className={`text-[10px] font-mono tracking-widest uppercase font-semibold ${
+                isLight ? "text-zinc-400" : "text-[#71717a]"
+              }`}>
                 REQUEST AI SUMMARY OF OKIZA
               </span>
 
-              <div className="flex items-center gap-3.5 text-[#a1a1aa]">
+              <div className={`flex items-center gap-3.5 ${isLight ? "text-zinc-500" : "text-[#a1a1aa]"}`}>
                 {/* ChatGPT */}
                 <a
                   href="https://chatgpt.com/?q=Summarize+Okiza+AI+CMO+and+Autonomous+Growth+Platform"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-[#ffffff] transition-colors"
+                  className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}
                   aria-label="Summarize with ChatGPT"
                   title="Summarize with ChatGPT"
                 >
@@ -93,7 +117,7 @@ export default function Footer() {
                   href="https://claude.ai/new?q=Summarize+Okiza+AI+CMO+and+Autonomous+Growth+Platform"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-[#ffffff] transition-colors"
+                  className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}
                   aria-label="Summarize with Claude"
                   title="Summarize with Claude"
                 >
@@ -107,7 +131,7 @@ export default function Footer() {
                   href="https://www.perplexity.ai/search?q=Summarize+Okiza+AI+CMO+and+Autonomous+Growth+Platform"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-[#ffffff] transition-colors"
+                  className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}
                   aria-label="Summarize with Perplexity"
                   title="Summarize with Perplexity"
                 >
@@ -121,32 +145,32 @@ export default function Footer() {
 
           {/* Column 1: TOOLS (Col 5-6 on desktop) */}
           <div className="col-span-1 md:col-span-2 flex flex-col">
-            <span className="text-[11px] font-mono tracking-widest text-[#71717a] uppercase font-semibold mb-4 block">
+            <span className={headerClass}>
               TOOLS
             </span>
             <div className="flex flex-col gap-2.5">
-              <Link href="/tools/ai-humanizer" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/tools/ai-humanizer" className={linkClass}>
                 AI Humanizer
               </Link>
-              <Link href="/tools/meta-description-generator" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/tools/meta-description-generator" className={linkClass}>
                 Meta Description Generator
               </Link>
-              <Link href="/tools/meta-tag-checker" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/tools/meta-tag-checker" className={linkClass}>
                 Meta Tag Checker
               </Link>
-              <Link href="/tools/robots-txt-generator" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/tools/robots-txt-generator" className={linkClass}>
                 Robots.txt Generator
               </Link>
-              <Link href="/tools/sitemap-generator" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/tools/sitemap-generator" className={linkClass}>
                 Sitemap.xml Generator
               </Link>
-              <Link href="/tools/utm-builder" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/tools/utm-builder" className={linkClass}>
                 UTM Builder
               </Link>
-              <Link href="/tools/x-video-downloader" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/tools/x-video-downloader" className={linkClass}>
                 X Video Downloader
               </Link>
-              <Link href="/tools/schema-generator" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/tools/schema-generator" className={linkClass}>
                 Schema Markup Generator
               </Link>
             </div>
@@ -154,65 +178,65 @@ export default function Footer() {
 
           {/* Column 2: USE CASES & RESOURCES (Col 7-8 on desktop) */}
           <div className="col-span-1 md:col-span-2 flex flex-col">
-            <span className="text-[11px] font-mono tracking-widest text-[#71717a] uppercase font-semibold mb-4 block">
+            <span className={headerClass}>
               USE CASES
             </span>
             <div className="flex flex-col gap-2.5">
-              <Link href="/marketing-automation/saas" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/saas" className={linkClass}>
                 SaaS
               </Link>
-              <Link href="/marketing-automation/startups" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/startups" className={linkClass}>
                 Startups
               </Link>
-              <Link href="/marketing-automation/ecommerce" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/ecommerce" className={linkClass}>
                 Ecommerce
               </Link>
-              <Link href="/marketing-automation/agencies" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/agencies" className={linkClass}>
                 Agencies
               </Link>
-              <Link href="/marketing-automation/services" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/services" className={linkClass}>
                 Professional Services
               </Link>
-              <Link href="/marketing-automation/real-estate" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/real-estate" className={linkClass}>
                 Real Estate
               </Link>
-              <Link href="/marketing-automation/financial-advisors" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/financial-advisors" className={linkClass}>
                 Financial Advisors
               </Link>
-              <Link href="/marketing-automation/healthcare" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/healthcare" className={linkClass}>
                 Healthcare
               </Link>
-              <Link href="/marketing-automation/recruiters" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/recruiters" className={linkClass}>
                 Recruiters
               </Link>
-              <Link href="/marketing-automation/restaurants" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/restaurants" className={linkClass}>
                 Restaurants
               </Link>
-              <Link href="/marketing-automation/law-firms" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/law-firms" className={linkClass}>
                 Law Firms
               </Link>
-              <Link href="/marketing-automation/small-business" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/small-business" className={linkClass}>
                 Small Business
               </Link>
-              <Link href="/marketing-automation/saas" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/marketing-automation/saas" className={linkClass}>
                 More Use Cases
               </Link>
             </div>
 
-            <span className="text-[11px] font-mono tracking-widest text-[#71717a] uppercase font-semibold mt-8 mb-4 block">
+            <span className={headerMtClass}>
               RESOURCES
             </span>
             <div className="flex flex-col gap-2.5">
-              <Link href="/growth-methodology" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/growth-methodology" className={linkClass}>
                 Skills
               </Link>
-              <Link href="/docs" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/docs" className={linkClass}>
                 Prompts
               </Link>
-              <Link href="/stories" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/stories" className={linkClass}>
                 Launch Library
               </Link>
-              <Link href="/growth-methodology" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/growth-methodology" className={linkClass}>
                 Viral Launch Handbook
               </Link>
             </div>
@@ -220,83 +244,85 @@ export default function Footer() {
 
           {/* Column 3: LEARN & INTEGRATIONS (Col 9-10 on desktop) */}
           <div className="col-span-1 md:col-span-2 flex flex-col">
-            <span className="text-[11px] font-mono tracking-widest text-[#71717a] uppercase font-semibold mb-4 block">
+            <span className={headerClass}>
               LEARN
             </span>
             <div className="flex flex-col gap-2.5">
-              <Link href="/growth-methodology" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/growth-methodology" className={linkClass}>
                 Blog
               </Link>
-              <Link href="/docs" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/docs" className={linkClass}>
                 Docs
               </Link>
-              <Link href="/docs" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/docs" className={linkClass}>
                 LLMs.txt Generator
               </Link>
             </div>
 
-            <span className="text-[11px] font-mono tracking-widest text-[#71717a] uppercase font-semibold mt-8 mb-4 block">
+            <span className={headerMtClass}>
               INTEGRATIONS
             </span>
             <div className="flex flex-col gap-2.5">
               <Link
                 href="/integrations"
-                className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed inline-flex items-center gap-1.5"
+                className={`${linkClass} inline-flex items-center gap-1.5`}
               >
                 <span>Okiza MCP</span>
-                <span className="text-[9px] font-mono uppercase bg-[#27272a] text-[#e4e4e7] px-1.5 py-0.5 rounded font-semibold tracking-wider">
+                <span className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded font-bold tracking-wider ${
+                  isLight ? "bg-zinc-100 text-zinc-900 border border-zinc-200" : "bg-[#27272a] text-[#e4e4e7]"
+                }`}>
                   NEW
                 </span>
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 WordPress
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 Webflow
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 Framer
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 Wix
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 HubSpot
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 Sanity
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 Google Search Console
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 Google Analytics
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 Google Ads
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 GitHub
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 LinkedIn
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 X (Twitter)
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 WhatsApp
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 Telegram
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 TikTok
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 Instagram
               </Link>
-              <Link href="/integrations" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/integrations" className={linkClass}>
                 Facebook
               </Link>
             </div>
@@ -304,71 +330,71 @@ export default function Footer() {
 
           {/* Column 4: COMPANY & AGENTS (Col 11-12 on desktop) */}
           <div className="col-span-1 md:col-span-2 flex flex-col">
-            <span className="text-[11px] font-mono tracking-widest text-[#71717a] uppercase font-semibold mb-4 block">
+            <span className={headerClass}>
               COMPANY
             </span>
             <div className="flex flex-col gap-2.5">
-              <Link href="/pricing" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/pricing" className={linkClass}>
                 About
               </Link>
-              <Link href="/stories" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/stories" className={linkClass}>
                 Customers
               </Link>
-              <Link href="/stories" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/stories" className={linkClass}>
                 Creators
               </Link>
-              <Link href="/pricing" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/pricing" className={linkClass}>
                 Pricing
               </Link>
-              <Link href="/pricing" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/pricing" className={linkClass}>
                 Agency
               </Link>
-              <Link href="/pricing" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/pricing" className={linkClass}>
                 Affiliates
               </Link>
-              <Link href="/pricing" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/pricing" className={linkClass}>
                 Careers
               </Link>
-              <Link href="/faq" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/faq" className={linkClass}>
                 Contact
               </Link>
-              <Link href="/pricing" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/pricing" className={linkClass}>
                 Refund Policy
               </Link>
             </div>
 
-            <span className="text-[11px] font-mono tracking-widest text-[#71717a] uppercase font-semibold mt-8 mb-4 block">
+            <span className={headerMtClass}>
               AGENTS
             </span>
             <div className="flex flex-col gap-2.5">
-              <Link href="/agents/influencer" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/agents/influencer" className={linkClass}>
                 Influencer
               </Link>
-              <Link href="/agents/seo" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/agents/seo" className={linkClass}>
                 Ads
               </Link>
-              <Link href="/agents/reddit" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/agents/reddit" className={linkClass}>
                 Reddit
               </Link>
-              <Link href="/agents/seo" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/agents/seo" className={linkClass}>
                 SEO
               </Link>
-              <Link href="/agents/writer" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/agents/writer" className={linkClass}>
                 Writer
               </Link>
-              <Link href="/agents/x-twitter" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/agents/x-twitter" className={linkClass}>
                 X (Twitter)
               </Link>
-              <Link href="/agents/linkedin" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/agents/linkedin" className={linkClass}>
                 LinkedIn
               </Link>
-              <Link href="/agents/geo" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/agents/geo" className={linkClass}>
                 GEO
               </Link>
-              <Link href="/agents/coding" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/agents/coding" className={linkClass}>
                 Coding
               </Link>
-              <Link href="/agents/ugc-videos" className="text-[13px] text-[#a1a1aa] hover:text-[#ffffff] transition-colors leading-relaxed">
+              <Link href="/agents/ugc-videos" className={linkClass}>
                 UGC Videos
               </Link>
             </div>
@@ -376,44 +402,59 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar (Matching Reference Image 2) */}
-        <div className="pt-6 pb-2 border-t border-[#1f1f23] flex flex-col lg:flex-row items-center justify-between gap-4 text-xs text-[#71717a]">
+        <div
+          className={`pt-6 pb-2 border-t flex flex-col lg:flex-row items-center justify-between gap-4 text-xs ${
+            isLight ? "border-zinc-200 text-zinc-500" : "border-[#1f1f23] text-[#71717a]"
+          }`}
+        >
           {/* Copyright */}
           <div>
             Copyright © 2026 StreamOye Pte Ltd. All rights reserved.
           </div>
 
           {/* Legal Links */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-[#71717a]">
-            <Link href="/faq" className="hover:text-[#ffffff] transition-colors">
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <Link href="/faq" className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}>
               Private Chat
             </Link>
-            <span className="text-[#3f3f46]">·</span>
-            <Link href="/faq" className="hover:text-[#ffffff] transition-colors">
+            <span className={isLight ? "text-zinc-300" : "text-[#3f3f46]"}>·</span>
+            <Link href="/faq" className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}>
               Privacy Policy
             </Link>
-            <span className="text-[#3f3f46]">·</span>
-            <Link href="/faq" className="hover:text-[#ffffff] transition-colors">
+            <span className={isLight ? "text-zinc-300" : "text-[#3f3f46]"}>·</span>
+            <Link href="/faq" className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}>
               Cookie Policy
             </Link>
-            <span className="text-[#3f3f46]">·</span>
+            <span className={isLight ? "text-zinc-300" : "text-[#3f3f46]"}>·</span>
             <button
               onClick={() => {}}
-              className="hover:text-[#ffffff] transition-colors cursor-pointer"
+              className={`transition-colors cursor-pointer ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}
             >
               Cookie preferences
             </button>
-            <span className="text-[#3f3f46]">·</span>
-            <Link href="/faq" className="hover:text-[#ffffff] transition-colors">
+            <span className={isLight ? "text-zinc-300" : "text-[#3f3f46]"}>·</span>
+            <Link href="/faq" className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}>
               Terms of Service
             </Link>
           </div>
 
           {/* Theme Switcher Pill */}
           <div className="flex items-center">
-            <div className="inline-flex items-center rounded-full bg-[#18181b] border border-[#27272a] p-0.5 text-xs">
+            <div
+              className={`inline-flex items-center rounded-full p-0.5 text-xs border transition-colors ${
+                isLight
+                  ? "bg-zinc-100 border-zinc-200"
+                  : "bg-[#18181b] border-[#27272a]"
+              }`}
+            >
               <button
                 type="button"
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[#71717a] hover:text-[#ffffff] transition-colors cursor-pointer"
+                onClick={() => setTheme("light")}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full transition-all cursor-pointer ${
+                  isLight
+                    ? "bg-white text-zinc-950 shadow-xs font-semibold"
+                    : "text-zinc-400 hover:text-white"
+                }`}
                 aria-label="Light mode"
               >
                 <Sun className="w-3.5 h-3.5" />
@@ -421,7 +462,12 @@ export default function Footer() {
               </button>
               <button
                 type="button"
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#27272a] text-[#ffffff] shadow-sm cursor-pointer"
+                onClick={() => setTheme("dark")}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full transition-all cursor-pointer ${
+                  !isLight
+                    ? "bg-zinc-800 text-white shadow-xs font-semibold"
+                    : "text-zinc-500 hover:text-black"
+                }`}
                 aria-label="Dark mode"
               >
                 <Moon className="w-3.5 h-3.5" />

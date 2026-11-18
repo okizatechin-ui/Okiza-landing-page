@@ -1,8 +1,12 @@
 "use client";
 
 import { Check, Zap, ArrowRight } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function CompetitiveSection() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const competitorRows = [
     {
       name: "You (Okiza)",
@@ -52,19 +56,25 @@ export default function CompetitiveSection() {
       className="w-full px-6 sm:px-12 md:px-20 py-20 bg-transparent"
       data-component="@components/CompetitiveSection.jsx"
     >
-      <div className="border-t border-[#262626] pt-20">
+      <div className={`border-t pt-20 ${isLight ? "border-zinc-200" : "border-[#262626]"}`}>
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
           {/* Left Column */}
           <div className="flex flex-col w-full lg:max-w-[420px] lg:min-w-[360px]">
-            <p className="text-xs font-medium tracking-widest text-[#ffffff] uppercase mb-4">
+            <p
+              className={`text-xs font-semibold tracking-widest uppercase mb-4 ${
+                isLight ? "text-zinc-500" : "text-[#ffffff]"
+              }`}
+            >
               Competitive Intelligence
             </p>
             <h2
-              className="font-semibold text-[#ffffff] mb-5 tracking-tight text-3xl sm:text-4xl md:text-[38px] leading-[1.15]"
+              className={`font-semibold mb-5 tracking-tight text-3xl sm:text-4xl md:text-[38px] leading-[1.15] ${
+                isLight ? "text-zinc-950" : "text-[#ffffff]"
+              }`}
             >
               Know your competitors. Find your advantage.
             </h2>
-            <p className="text-base text-[#a1a1aa] mb-8 leading-relaxed">
+            <p className={`text-base mb-8 leading-relaxed ${isLight ? "text-zinc-600" : "text-[#a1a1aa]"}`}>
               Okiza discovers relevant competitors, analyses how they position
               themselves and identifies the opportunities your business can capture
               before they do.
@@ -75,40 +85,48 @@ export default function CompetitiveSection() {
               {features.map((feature, idx) => (
                 <div key={idx} className="flex items-center gap-2.5">
                   <div
-                    className="w-4 h-4 rounded-full flex items-center justify-center shrink-0"
-                    style={{ background: "rgba(255, 255, 255, 0.1)" }}
+                    className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${
+                      isLight ? "bg-zinc-100 border border-zinc-300" : "bg-white/10"
+                    }`}
                   >
-                    <Check className="w-2.5 h-2.5 text-[#ffffff]" strokeWidth={3} />
+                    <Check
+                      className={`w-2.5 h-2.5 ${isLight ? "text-zinc-950" : "text-[#ffffff]"}`}
+                      strokeWidth={3}
+                    />
                   </div>
-                  <span className="text-sm text-[#a1a1aa]">{feature}</span>
+                  <span className={`text-sm ${isLight ? "text-zinc-700" : "text-[#a1a1aa]"}`}>
+                    {feature}
+                  </span>
                 </div>
               ))}
             </div>
 
             {/* Opportunity Callout Card */}
             <div
-              className="rounded-lg border p-4 shadow-lg transition-all hover:border-[#ffffff]/40"
-              style={{
-                background: "rgba(255, 255, 255, 0.03)",
-                borderColor: "rgba(255, 255, 255, 0.15)",
-              }}
+              className={`rounded-lg border p-4 shadow-sm transition-all ${
+                isLight
+                  ? "border-zinc-200 bg-zinc-50 hover:border-zinc-300"
+                  : "border-white/15 bg-white/[0.03] hover:border-[#ffffff]/40"
+              }`}
             >
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-4 h-4 rounded-full bg-[#ffffff] flex items-center justify-center">
-                  <Zap className="w-2.5 h-2.5 text-[#000000] fill-[#000000]" />
+                <div className="w-4 h-4 rounded-full bg-zinc-950 dark:bg-white flex items-center justify-center">
+                  <Zap className="w-2.5 h-2.5 text-white dark:text-black fill-current" />
                 </div>
-                <span className="text-xs font-semibold text-[#ffffff]">
+                <span className={`text-xs font-semibold ${isLight ? "text-zinc-950" : "text-[#ffffff]"}`}>
                   Opportunity detected
                 </span>
               </div>
-              <p className="text-xs text-[#a1a1aa] leading-relaxed mb-3">
+              <p className={`text-xs leading-relaxed mb-3 ${isLight ? "text-zinc-600" : "text-[#a1a1aa]"}`}>
                 Your competitors have stronger search visibility for three
                 high-intent customer queries. Build targeted landing pages to capture
                 this demand.
               </p>
               <button
                 onClick={() => alert("Launching Competitive Intelligence Explorer...")}
-                className="text-xs text-[#ffffff] font-medium flex items-center gap-1 hover:underline cursor-pointer"
+                className={`text-xs font-semibold flex items-center gap-1 hover:underline cursor-pointer ${
+                  isLight ? "text-zinc-950" : "text-[#ffffff]"
+                }`}
               >
                 <span>Explore Competitive Intelligence</span>
                 <ArrowRight className="w-3 h-3" />
@@ -120,19 +138,19 @@ export default function CompetitiveSection() {
           <div className="flex-1 w-full flex flex-col gap-3">
             {/* Table Header */}
             <div className="grid grid-cols-5 gap-3 px-4 mb-1">
-              <span className="text-xs text-[#a1a1aa] font-medium col-span-1">
+              <span className={`text-xs font-medium col-span-1 ${isLight ? "text-zinc-500" : "text-[#a1a1aa]"}`}>
                 Business
               </span>
-              <span className="text-xs text-[#a1a1aa] font-medium text-right">
+              <span className={`text-xs font-medium text-right ${isLight ? "text-zinc-500" : "text-[#a1a1aa]"}`}>
                 Search
               </span>
-              <span className="text-xs text-[#a1a1aa] font-medium text-right">
+              <span className={`text-xs font-medium text-right ${isLight ? "text-zinc-500" : "text-[#a1a1aa]"}`}>
                 AI Search
               </span>
-              <span className="text-xs text-[#a1a1aa] font-medium text-right">
+              <span className={`text-xs font-medium text-right ${isLight ? "text-zinc-500" : "text-[#a1a1aa]"}`}>
                 Social
               </span>
-              <span className="text-xs text-[#a1a1aa] font-medium text-right">
+              <span className={`text-xs font-medium text-right ${isLight ? "text-zinc-500" : "text-[#a1a1aa]"}`}>
                 Brand Score
               </span>
             </div>
@@ -143,13 +161,23 @@ export default function CompetitiveSection() {
                 key={idx}
                 className={`grid grid-cols-5 items-center gap-3 px-4 py-3 rounded-lg border transition-all ${
                   row.isYou
-                    ? "border-[#ffffff]/30 bg-[#ffffff]/[0.05] shadow-[0_0_20px_rgba(255,255,255,0.05)]"
+                    ? isLight
+                      ? "border-zinc-900 bg-zinc-50 shadow-sm"
+                      : "border-[#ffffff]/30 bg-[#ffffff]/[0.05] shadow-[0_0_20px_rgba(255,255,255,0.05)]"
+                    : isLight
+                    ? "border-zinc-200 bg-white hover:border-zinc-300 shadow-xs"
                     : "border-[#262626] bg-[#111111] hover:border-[#383838]"
                 }`}
               >
                 <span
-                  className={`text-sm font-medium col-span-1 truncate ${
-                    row.isYou ? "text-[#ffffff] font-semibold" : "text-[#ffffff]"
+                  className={`text-sm col-span-1 truncate ${
+                    row.isYou
+                      ? isLight
+                        ? "text-zinc-950 font-bold"
+                        : "text-[#ffffff] font-semibold"
+                      : isLight
+                      ? "text-zinc-800 font-medium"
+                      : "text-[#ffffff]"
                   }`}
                 >
                   {row.name}
@@ -167,8 +195,14 @@ export default function CompetitiveSection() {
                             background:
                               barIdx < row.search.filled
                                 ? row.isYou
-                                  ? "#ffffff"
+                                  ? isLight
+                                    ? "#09090b"
+                                    : "#ffffff"
+                                  : isLight
+                                  ? "#71717a"
                                   : "#52525b"
+                                : isLight
+                                ? "#e4e4e7"
                                 : "#262626",
                           }}
                         />
@@ -176,7 +210,13 @@ export default function CompetitiveSection() {
                     </div>
                     <span
                       className={`text-xs font-mono w-7 text-right ${
-                        row.isYou ? "text-[#ffffff] font-semibold" : "text-[#a1a1aa]"
+                        row.isYou
+                          ? isLight
+                            ? "text-zinc-950 font-bold"
+                            : "text-[#ffffff] font-semibold"
+                          : isLight
+                          ? "text-zinc-600"
+                          : "text-[#a1a1aa]"
                       }`}
                     >
                       {row.search.value}
@@ -196,8 +236,14 @@ export default function CompetitiveSection() {
                             background:
                               barIdx < row.aiSearch.filled
                                 ? row.isYou
-                                  ? "#ffffff"
+                                  ? isLight
+                                    ? "#09090b"
+                                    : "#ffffff"
+                                  : isLight
+                                  ? "#71717a"
                                   : "#52525b"
+                                : isLight
+                                ? "#e4e4e7"
                                 : "#262626",
                           }}
                         />
@@ -205,7 +251,13 @@ export default function CompetitiveSection() {
                     </div>
                     <span
                       className={`text-xs font-mono w-7 text-right ${
-                        row.isYou ? "text-[#ffffff] font-semibold" : "text-[#a1a1aa]"
+                        row.isYou
+                          ? isLight
+                            ? "text-zinc-950 font-bold"
+                            : "text-[#ffffff] font-semibold"
+                          : isLight
+                          ? "text-zinc-600"
+                          : "text-[#a1a1aa]"
                       }`}
                     >
                       {row.aiSearch.value}
@@ -225,8 +277,14 @@ export default function CompetitiveSection() {
                             background:
                               barIdx < row.social.filled
                                 ? row.isYou
-                                  ? "#ffffff"
+                                  ? isLight
+                                    ? "#09090b"
+                                    : "#ffffff"
+                                  : isLight
+                                  ? "#71717a"
                                   : "#52525b"
+                                : isLight
+                                ? "#e4e4e7"
                                 : "#262626",
                           }}
                         />
@@ -234,7 +292,13 @@ export default function CompetitiveSection() {
                     </div>
                     <span
                       className={`text-xs font-mono w-7 text-right ${
-                        row.isYou ? "text-[#ffffff] font-semibold" : "text-[#a1a1aa]"
+                        row.isYou
+                          ? isLight
+                            ? "text-zinc-950 font-bold"
+                            : "text-[#ffffff] font-semibold"
+                          : isLight
+                          ? "text-zinc-600"
+                          : "text-[#a1a1aa]"
                       }`}
                     >
                       {row.social.value}
@@ -254,8 +318,14 @@ export default function CompetitiveSection() {
                             background:
                               barIdx < row.brandScore.filled
                                 ? row.isYou
-                                  ? "#ffffff"
+                                  ? isLight
+                                    ? "#09090b"
+                                    : "#ffffff"
+                                  : isLight
+                                  ? "#71717a"
                                   : "#52525b"
+                                : isLight
+                                ? "#e4e4e7"
                                 : "#262626",
                           }}
                         />
@@ -263,7 +333,13 @@ export default function CompetitiveSection() {
                     </div>
                     <span
                       className={`text-xs font-mono w-7 text-right ${
-                        row.isYou ? "text-[#ffffff] font-semibold" : "text-[#a1a1aa]"
+                        row.isYou
+                          ? isLight
+                            ? "text-zinc-950 font-bold"
+                            : "text-[#ffffff] font-semibold"
+                          : isLight
+                          ? "text-zinc-600"
+                          : "text-[#a1a1aa]"
                       }`}
                     >
                       {row.brandScore.value}
@@ -275,18 +351,26 @@ export default function CompetitiveSection() {
 
             {/* Market Gaps Bottom Card */}
             <div
-              className="mt-4 rounded-lg border border-[#262626] p-4 bg-[#111111] hover:border-[#ffffff]/30 transition-all"
+              className={`mt-4 rounded-lg border p-4 transition-all ${
+                isLight
+                  ? "border-zinc-200 bg-zinc-50 hover:border-zinc-300"
+                  : "border-[#262626] bg-[#111111] hover:border-[#ffffff]/30"
+              }`}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-xs font-medium text-[#ffffff] block mb-1">
+                  <span className={`text-xs font-semibold block mb-1 ${
+                    isLight ? "text-zinc-950" : "text-[#ffffff]"
+                  }`}>
                     Market Gaps Identified
                   </span>
-                  <span className="text-xs text-[#a1a1aa]">
+                  <span className={`text-xs ${isLight ? "text-zinc-500" : "text-[#a1a1aa]"}`}>
                     3 high-intent keyword clusters with no strong competitor dominance
                   </span>
                 </div>
-                <div className="text-4xl font-semibold text-[#ffffff] ml-6 font-mono">
+                <div className={`text-4xl font-semibold ml-6 font-mono ${
+                  isLight ? "text-zinc-950" : "text-[#ffffff]"
+                }`}>
                   3
                 </div>
               </div>

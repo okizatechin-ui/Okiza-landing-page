@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function FAQSection() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const [openIdx, setOpenIdx] = useState(0);
 
   const faqs = [
@@ -31,15 +34,23 @@ export default function FAQSection() {
 
   return (
     <section id="faq" className="w-full px-6 sm:px-12 md:px-20 py-20 bg-transparent">
-      <div className="border-t border-[#262626] pt-20 max-w-4xl mx-auto">
+      <div className={`border-t pt-20 max-w-4xl mx-auto ${isLight ? "border-zinc-200" : "border-[#262626]"}`}>
         <div className="flex flex-col items-center text-center mb-14">
-          <p className="text-xs font-medium tracking-widest text-[#ffffff] uppercase mb-4">
+          <p
+            className={`text-xs font-semibold tracking-widest uppercase mb-4 ${
+              isLight ? "text-zinc-500" : "text-[#ffffff]"
+            }`}
+          >
             Got Questions?
           </p>
-          <h2 className="font-semibold text-[#ffffff] mb-4 tracking-tight text-3xl sm:text-4xl leading-[1.1]">
+          <h2
+            className={`font-semibold mb-4 tracking-tight text-3xl sm:text-4xl leading-[1.1] ${
+              isLight ? "text-zinc-950" : "text-[#ffffff]"
+            }`}
+          >
             Frequently Asked Questions
           </h2>
-          <p className="text-sm text-[#a1a1aa] max-w-md">
+          <p className={`text-sm max-w-md ${isLight ? "text-zinc-600" : "text-[#a1a1aa]"}`}>
             Everything you need to know about the Okiza platform and our AI growth operating system.
           </p>
         </div>
@@ -50,23 +61,39 @@ export default function FAQSection() {
             return (
               <div
                 key={idx}
-                className="rounded-lg border border-[#262626] bg-[#111111] overflow-hidden transition-colors"
+                className={`rounded-xl border overflow-hidden transition-all ${
+                  isLight
+                    ? "border-zinc-200 bg-white hover:border-zinc-300 shadow-xs"
+                    : "border-[#262626] bg-[#111111]"
+                }`}
               >
                 <button
                   onClick={() => setOpenIdx(isOpen ? null : idx)}
-                  className="w-full flex items-center justify-between p-5 text-left cursor-pointer hover:bg-[#18181b] transition-colors"
+                  className={`w-full flex items-center justify-between p-5 text-left cursor-pointer transition-colors ${
+                    isLight ? "hover:bg-zinc-50" : "hover:bg-[#18181b]"
+                  }`}
                 >
-                  <span className="font-medium text-[#ffffff] text-sm sm:text-base pr-4">
+                  <span
+                    className={`font-semibold text-sm sm:text-base pr-4 ${
+                      isLight ? "text-zinc-950" : "text-[#ffffff]"
+                    }`}
+                  >
                     {faq.q}
                   </span>
                   <ChevronDown
-                    className={`w-4 h-4 text-[#a1a1aa] shrink-0 transition-transform duration-200 ${
-                      isOpen ? "rotate-180 text-[#ffffff]" : ""
-                    }`}
+                    className={`w-4 h-4 shrink-0 transition-transform duration-200 ${
+                      isOpen ? "rotate-180" : ""
+                    } ${isLight ? "text-zinc-700" : "text-[#a1a1aa]"}`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#a1a1aa] leading-relaxed border-t border-[#262626]/60">
+                  <div
+                    className={`px-5 pb-5 pt-1 text-xs sm:text-sm leading-relaxed border-t ${
+                      isLight
+                        ? "text-zinc-600 border-zinc-100"
+                        : "text-[#a1a1aa] border-[#262626]/60"
+                    }`}
+                  >
                     {faq.a}
                   </div>
                 )}

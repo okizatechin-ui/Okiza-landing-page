@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import OkizaLogo from "./OkizaLogo";
+import { useTheme } from "@/context/ThemeContext";
 import {
   ChevronDown,
   Menu,
@@ -37,9 +38,13 @@ import {
   CodeXml,
   Clapperboard,
   PenTool,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 export default function NavBar() {
+  const { theme, toggleTheme } = useTheme();
+  const isLight = theme === "light";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null); // "usecases" | "agents" | "integrations" | "resources"
   const [activeStoryIdx, setActiveStoryIdx] = useState(0);
@@ -394,8 +399,16 @@ export default function NavBar() {
           isScrolled
             ? `max-w-7xl ${
                 mobileMenuOpen ? "rounded-2xl" : "rounded-2xl md:rounded-full"
-              } bg-[#000000]/95 backdrop-blur-md border border-[#262626] shadow-[0_20px_50px_rgba(0,0,0,0.85)]`
-            : "w-full rounded-none bg-[#000000]/95 backdrop-blur-md border border-transparent border-b-[#262626] shadow-none"
+              } backdrop-blur-md border shadow-lg ${
+                isLight
+                  ? "bg-[#ffffff]/90 border-[#e4e4e7] shadow-[0_20px_50px_rgba(0,0,0,0.06)]"
+                  : "bg-[#000000]/95 border-[#262626] shadow-[0_20px_50px_rgba(0,0,0,0.85)]"
+              }`
+            : `w-full rounded-none backdrop-blur-md border border-transparent shadow-none ${
+                isLight
+                  ? "bg-[#ffffff]/90 border-b-[#e4e4e7]"
+                  : "bg-[#000000]/95 border-b-[#262626]"
+              }`
         }`}
       >
         <div
@@ -408,9 +421,9 @@ export default function NavBar() {
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="transition-transform group-hover:scale-105">
-            <OkizaLogo size={42} variant="white" />
+            <OkizaLogo size={42} variant={isLight ? "black" : "white"} />
           </div>
-          <span className="font-semibold tracking-tight text-[#ffffff] text-xl font-sans">
+          <span className={`font-semibold tracking-tight text-xl font-sans ${isLight ? "text-[#09090b]" : "text-[#ffffff]"}`}>
             okiza
           </span>
         </Link>
@@ -427,7 +440,11 @@ export default function NavBar() {
               onClick={() => toggleMenu("agents")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all cursor-pointer ${
                 activeMenu === "agents"
-                  ? "bg-[#18181b] border border-[#262626] text-[#ffffff]"
+                  ? isLight
+                    ? "bg-zinc-100 border border-zinc-200 text-zinc-950"
+                    : "bg-[#18181b] border border-[#262626] text-[#ffffff]"
+                  : isLight
+                  ? "text-zinc-600 hover:text-black"
                   : "text-[#a1a1aa] hover:text-[#ffffff]"
               }`}
             >
@@ -441,7 +458,11 @@ export default function NavBar() {
 
             {/* Agents dropdown */}
             {activeMenu === "agents" && (
-              <div className="absolute top-full -left-6 sm:-left-12 lg:-left-16 mt-3 w-[640px] lg:w-[680px] rounded-[22px] border border-[#383332] bg-[#292524] backdrop-blur-2xl p-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] animate-fadeIn z-50 text-left">
+              <div className={`absolute top-full -left-6 sm:-left-12 lg:-left-16 mt-3 w-[640px] lg:w-[680px] rounded-[22px] border backdrop-blur-2xl p-7 shadow-2xl animate-fadeIn z-50 text-left ${
+                isLight
+                  ? "bg-white/95 border-zinc-200 text-zinc-900 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.12)]"
+                  : "bg-[#292524] border-[#383332] text-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)]"
+              }`}>
                 <div className="grid grid-cols-2 gap-x-10 lg:gap-x-12">
                   {/* Left Column (5 items) */}
                   <div className="flex flex-col gap-5">
@@ -505,7 +526,11 @@ export default function NavBar() {
               onClick={() => toggleMenu("integrations")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all cursor-pointer ${
                 activeMenu === "integrations"
-                  ? "bg-[#18181b] border border-[#262626] text-[#ffffff]"
+                  ? isLight
+                    ? "bg-zinc-100 border border-zinc-200 text-zinc-950"
+                    : "bg-[#18181b] border border-[#262626] text-[#ffffff]"
+                  : isLight
+                  ? "text-zinc-600 hover:text-black"
                   : "text-[#a1a1aa] hover:text-[#ffffff]"
               }`}
             >
@@ -519,7 +544,11 @@ export default function NavBar() {
 
             {/* Integrations dropdown */}
             {activeMenu === "integrations" && (
-              <div className="absolute top-full -left-28 sm:-left-36 lg:-left-44 mt-3 w-[780px] lg:w-[860px] rounded-[22px] border border-[#383332] bg-[#292524] backdrop-blur-2xl p-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] animate-fadeIn z-50 text-left">
+              <div className={`absolute top-full -left-28 sm:-left-36 lg:-left-44 mt-3 w-[780px] lg:w-[860px] rounded-[22px] border backdrop-blur-2xl p-7 shadow-2xl animate-fadeIn z-50 text-left ${
+                isLight
+                  ? "bg-white/95 border-zinc-200 text-zinc-900 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.12)]"
+                  : "bg-[#292524] border-[#383332] text-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)]"
+              }`}>
                 <div className="grid grid-cols-3 gap-x-8 lg:gap-x-10">
                   {/* Column 1 (3 items) */}
                   <div className="flex flex-col gap-5">
@@ -607,7 +636,11 @@ export default function NavBar() {
               onClick={() => toggleMenu("usecases")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all cursor-pointer ${
                 activeMenu === "usecases"
-                  ? "bg-[#18181b] border border-[#262626] text-[#ffffff] shadow-sm"
+                  ? isLight
+                    ? "bg-zinc-100 border border-zinc-200 text-zinc-950 shadow-sm"
+                    : "bg-[#18181b] border border-[#262626] text-[#ffffff] shadow-sm"
+                  : isLight
+                  ? "text-zinc-600 hover:text-black"
                   : "text-[#a1a1aa] hover:text-[#ffffff]"
               }`}
             >
@@ -622,7 +655,11 @@ export default function NavBar() {
             {/* Mega Dropdown Panel */}
             {activeMenu === "usecases" && (
               <div
-                className="absolute top-full -left-48 lg:-left-36 mt-3 w-[920px] lg:w-[980px] rounded-2xl border border-[#262626] bg-[#121212]/98 backdrop-blur-2xl p-6 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] animate-fadeIn z-50 text-left"
+                className={`absolute top-full -left-48 lg:-left-36 mt-3 w-[920px] lg:w-[980px] rounded-2xl border backdrop-blur-2xl p-6 shadow-2xl animate-fadeIn z-50 text-left ${
+                isLight
+                  ? "bg-white/95 border-zinc-200 text-zinc-900 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.12)]"
+                  : "bg-[#121212]/98 border-[#262626] text-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)]"
+              }`}
               >
                 <div className="grid grid-cols-12 gap-6">
                   {/* Left: 3 Columns Grid of 12 Use Cases */}
@@ -668,14 +705,16 @@ export default function NavBar() {
 
                   {/* Right: Featured Customer Story Card */}
                   <div className="col-span-4 flex flex-col">
-                    <div className="h-full rounded-xl border border-[#2a2a2d] bg-[#18181b] p-6 flex flex-col justify-between shadow-lg relative overflow-hidden group">
+                    <div className={`h-full rounded-xl border p-6 flex flex-col justify-between shadow-lg relative overflow-hidden group ${
+                      isLight ? "bg-zinc-50 border-zinc-200 shadow-sm" : "bg-[#18181b] border-[#2a2a2d]"
+                    }`}>
                       {/* Top Content */}
                       <div>
                         <span className="text-[10px] font-semibold tracking-widest text-[#71717a] uppercase block mb-3">
                           {story.tag}
                         </span>
 
-                        <h4 className="text-base font-semibold text-[#ffffff] leading-snug mb-3 tracking-tight">
+                        <h4 className={`text-base font-semibold leading-snug mb-3 tracking-tight ${isLight ? "text-zinc-950" : "text-[#ffffff]"}`}>
                           {story.headline}
                         </h4>
 
@@ -690,13 +729,13 @@ export default function NavBar() {
                       </div>
 
                       {/* Bottom Company Info & Carousel Dots */}
-                      <div className="pt-6 mt-6 border-t border-[#262626]/80 flex flex-col gap-4">
+                      <div className={`pt-6 mt-6 border-t flex flex-col gap-4 ${isLight ? "border-zinc-200" : "border-[#262626]/80"}`}>
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded-lg bg-[#242427] border border-[#333336] flex items-center justify-center font-bold text-xs text-[#ffffff] shrink-0">
                             {story.initials}
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-sm font-semibold text-[#ffffff] leading-tight">
+                            <span className={`text-sm font-semibold leading-tight ${isLight ? "text-zinc-950" : "text-[#ffffff]"}`}>
                               {story.company}
                             </span>
                             <span className="text-xs text-[#71717a]">
@@ -764,7 +803,11 @@ export default function NavBar() {
               onClick={() => toggleMenu("resources")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all cursor-pointer ${
                 activeMenu === "resources"
-                  ? "bg-[#18181b] border border-[#262626] text-[#ffffff]"
+                  ? isLight
+                    ? "bg-zinc-100 border border-zinc-200 text-zinc-950"
+                    : "bg-[#18181b] border border-[#262626] text-[#ffffff]"
+                  : isLight
+                  ? "text-zinc-600 hover:text-black"
                   : "text-[#a1a1aa] hover:text-[#ffffff]"
               }`}
             >
@@ -778,7 +821,11 @@ export default function NavBar() {
 
             {/* Resources dropdown */}
             {activeMenu === "resources" && (
-              <div className="absolute top-full right-0 mt-3 w-80 rounded-[22px] border border-[#383332] bg-[#292524] backdrop-blur-2xl p-5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] animate-fadeIn z-50 text-left">
+              <div className={`absolute top-full right-0 mt-3 w-80 rounded-[22px] border backdrop-blur-2xl p-5 shadow-2xl animate-fadeIn z-50 text-left ${
+                isLight
+                  ? "bg-white/95 border-zinc-200 text-zinc-900 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.12)]"
+                  : "bg-[#292524] border-[#383332] text-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)]"
+              }`}>
                 <div className="flex flex-col gap-4">
                   <Link
                     href="/growth-methodology"
@@ -839,31 +886,58 @@ export default function NavBar() {
           </div>
         </div>
 
-        {/* Right CTA Button */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link
-            href="/dashboard"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-full bg-[#ffffff] text-[#000000] hover:bg-[#e4e4e7] transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.35)] cursor-pointer"
+        {/* Right Section: Theme Toggle + CTA Button + Mobile Menu Button */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
+            className={`p-2 rounded-full border transition-all cursor-pointer flex items-center justify-center ${
+              isLight
+                ? "bg-zinc-100 hover:bg-zinc-200 border-zinc-200 text-zinc-800"
+                : "bg-white/5 hover:bg-white/10 border-white/10 text-zinc-300 hover:text-white"
+            }`}
           >
-            <span>Start free trial</span>
-          </Link>
-        </div>
+            {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+          </button>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden text-[#a1a1aa] hover:text-[#ffffff] p-2 focus:outline-none cursor-pointer"
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+          {/* Desktop CTA Button */}
+          <div className="hidden md:flex items-center gap-3">
+            <Link
+              href="/dashboard"
+              className={`inline-flex items-center gap-1.5 text-sm font-semibold px-5 py-2 rounded-full transition-all cursor-pointer ${
+                isLight
+                  ? "bg-zinc-900 text-white hover:bg-black shadow-sm"
+                  : "bg-white text-black hover:bg-zinc-200 hover:shadow-[0_0_20px_rgba(255,255,255,0.35)]"
+              }`}
+            >
+              <span>Start free</span>
+            </Link>
+          </div>
+
+          {/* Mobile Hamburger Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+            className={`md:hidden p-2 rounded-full border transition-all cursor-pointer ${
+              isLight
+                ? "bg-zinc-100 hover:bg-zinc-200 border-zinc-200 text-zinc-900"
+                : "bg-white/5 hover:bg-white/10 border-white/10 text-white"
+            }`}
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
         <div
-          className={`md:hidden w-full bg-[#000000] border-t border-[#262626] px-6 py-6 flex flex-col gap-4 shadow-2xl max-h-[85vh] overflow-y-auto transition-all ${
-            isScrolled ? "rounded-b-2xl" : "rounded-none border-b border-[#262626]"
+          className={`md:hidden w-full border-t px-6 py-6 flex flex-col gap-4 shadow-2xl max-h-[85vh] overflow-y-auto transition-all ${
+            isLight ? "bg-white border-zinc-200 text-zinc-900" : "bg-[#000000] border-[#262626] text-white"
+          } ${
+            isScrolled ? "rounded-b-2xl" : "rounded-none border-b border-zinc-200 dark:border-[#262626]"
           }`}
         >
           <span className="text-xs font-semibold text-[#71717a] uppercase tracking-wider">
