@@ -394,7 +394,7 @@ export default function NavBar() {
           isScrolled
             ? `max-w-7xl ${
                 mobileMenuOpen ? "rounded-2xl" : "rounded-2xl md:rounded-full"
-              } bg-[#09090b]/90 backdrop-blur-xl border border-[#262626] shadow-[0_20px_50px_rgba(0,0,0,0.85)]`
+              } bg-[#000000]/95 backdrop-blur-md border border-[#262626] shadow-[0_20px_50px_rgba(0,0,0,0.85)]`
             : "w-full rounded-none bg-[#000000]/95 backdrop-blur-md border border-transparent border-b-[#262626] shadow-none"
         }`}
       >
@@ -862,7 +862,7 @@ export default function NavBar() {
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
         <div
-          className={`md:hidden w-full bg-[#09090b] border-t border-[#262626] px-6 py-6 flex flex-col gap-4 shadow-2xl max-h-[85vh] overflow-y-auto transition-all ${
+          className={`md:hidden w-full bg-[#000000] border-t border-[#262626] px-6 py-6 flex flex-col gap-4 shadow-2xl max-h-[85vh] overflow-y-auto transition-all ${
             isScrolled ? "rounded-b-2xl" : "rounded-none border-b border-[#262626]"
           }`}
         >
