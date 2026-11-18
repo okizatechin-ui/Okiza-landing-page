@@ -5,7 +5,7 @@ import OkizaLogo from "./OkizaLogo";
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-[#262626] bg-transparent text-[#a1a1aa] px-6 sm:px-12 md:px-20 pt-6 sm:pt-8 pb-10 sm:pb-12 mt-6 sm:mt-8">
+    <footer className="w-full border-t border-[#262626] bg-transparent text-[#a1a1aa] px-6 sm:px-12 md:px-20 pt-6 sm:pt-8 pb-2 sm:pb-3 mt-6 sm:mt-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {/* Brand info */}
@@ -96,7 +96,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-[#262626] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        <div className="pt-4 sm:pt-5 border-t border-[#262626] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
           <span>© 2025 Okiza Inc. All rights reserved.</span>
           <div className="flex items-center gap-6">
             <a href="#" className="hover:text-[#ffffff] transition-colors">
