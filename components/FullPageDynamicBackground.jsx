@@ -64,69 +64,12 @@ export default function FullPageDynamicBackground() {
     const cols = () => Math.ceil(width / spacing) + 1;
     const rows = () => Math.ceil(height / spacing) + 1;
 
-    // ========================================================
-    // Staggered & Evenly Distributed Running Photons
-    // Zero clumping, perpetual continuous flow across viewport
-    // ========================================================
-    const hPhotons = 16;
-    const vPhotons = 16;
-    const photons = [];
-
-    // Horizontal Photons (staggered evenly across screen width)
-    for (let i = 0; i < hPhotons; i++) {
-      const dir = i % 2 === 0 ? 1 : -1;
-      const speed = (1.15 + (i % 5) * 0.18) * dir;
-      const len = 45 + (i % 4) * 12;
-      const progress = i / hPhotons;
-      const pos = progress * (width || 1920);
-
-      photons.push({
-        axis: "h",
-        lineIndex: (i * 3 + 2) % 40,
-        pos,
-        speed,
-        len,
-      });
-    }
-
-    // Vertical Photons (staggered evenly across screen height)
-    for (let i = 0; i < vPhotons; i++) {
-      const dir = i % 2 === 0 ? 1 : -1;
-      const speed = (1.05 + (i % 5) * 0.18) * dir;
-      const len = 45 + (i % 4) * 12;
-      const progress = i / vPhotons;
-      const pos = progress * (height || 1080);
-
-      photons.push({
-        axis: "v",
-        lineIndex: (i * 3 + 1) % 40,
-        pos,
-        speed,
-        len,
-      });
-    }
-
-    let time = 0;
     let lastTime = 0;
-    let lastScrollY = window.scrollY || 0;
-    let scrollVelocity = 0;
-
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY || 0;
-      const delta = currentScrollY - lastScrollY;
-      lastScrollY = currentScrollY;
-      // Clamped gentle scroll impulse to avoid sudden visual jumps
-      scrollVelocity = Math.max(-10, Math.min(10, delta * 0.08));
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
 
     const render = (now) => {
       if (!lastTime) lastTime = now;
-      const dt = Math.min((now - lastTime) / 16.67, 1.8); // 60fps-normalized delta time
       lastTime = now;
 
-      time += dt;
-      scrollVelocity *= 0.94;
       ctx.clearRect(0, 0, width, height);
 
       const mouse = mouseRef.current;
@@ -136,88 +79,8 @@ export default function FullPageDynamicBackground() {
       const currentCols = cols();
       const currentRows = rows();
 
-      // ========================================================
-      // 3. LAYER: Seamless Running Photons with Laser Trails
-      // Continuous perpetual flow without breaks or restarts
-      // ========================================================
-      photons.forEach((p) => {
-        p.pos += (p.speed + (p.axis === "v" ? scrollVelocity : 0)) * dt;
-        const maxBound = p.axis === "h" ? width : height;
-        const lineLimit = p.axis === "h" ? currentRows : currentCols;
-
-        // Continuous wrap-around without clump synchronization
-        if (p.speed > 0) {
-          if (p.pos - p.len > maxBound) {
-            p.pos = -p.len - 15;
-            p.lineIndex = (p.lineIndex + 7) % lineLimit;
-          }
-        } else {
-          if (p.pos + p.len < 0) {
-            p.pos = maxBound + p.len + 15;
-            p.lineIndex = (p.lineIndex + 7) % lineLimit;
-          }
-        }
-
-        // Edge fade factor to ensure silky appearance / disappearance
-        const margin = 70;
-        let edgeOpacity = 1;
-        if (p.pos < margin) {
-          edgeOpacity = Math.max(0, (p.pos + p.len) / (margin + p.len));
-        } else if (p.pos > maxBound - margin) {
-          edgeOpacity = Math.max(0, (maxBound + p.len - p.pos) / (margin + p.len));
-        }
-        edgeOpacity = Math.min(1, Math.max(0, edgeOpacity));
-
-        if (edgeOpacity <= 0.01) return;
-
-        ctx.beginPath();
-        let startX, startY, endX, endY;
-
-        if (p.axis === "h") {
-          const y = (p.lineIndex % currentRows) * spacing;
-          startX = p.pos;
-          startY = y;
-          endX = p.pos - (p.speed > 0 ? p.len : -p.len);
-          endY = y;
-
-          const grad = ctx.createLinearGradient(startX, y, endX, y);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${0.9 * edgeOpacity})`);
-          grad.addColorStop(0.35, `rgba(220, 220, 230, ${0.35 * edgeOpacity})`);
-          grad.addColorStop(1, "rgba(255, 255, 255, 0)");
-          ctx.strokeStyle = grad;
-        } else {
-          const x = (p.lineIndex % currentCols) * spacing;
-          startX = x;
-          startY = p.pos;
-          endX = x;
-          endY = p.pos - (p.speed > 0 ? p.len : -p.len);
-
-          const grad = ctx.createLinearGradient(x, startY, x, endY);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${0.9 * edgeOpacity})`);
-          grad.addColorStop(0.35, `rgba(220, 220, 230, ${0.35 * edgeOpacity})`);
-          grad.addColorStop(1, "rgba(255, 255, 255, 0)");
-          ctx.strokeStyle = grad;
-        }
-
-        ctx.lineWidth = 1.4;
-        ctx.moveTo(startX, startY);
-        ctx.lineTo(endX, endY);
-        ctx.stroke();
-
-        // Luminous glowing running dot head
-        ctx.beginPath();
-        ctx.arc(startX, startY, 2.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${edgeOpacity})`;
-        ctx.shadowColor = `rgba(255, 255, 255, ${0.95 * edgeOpacity})`;
-        ctx.shadowBlur = 9;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      });
-
-      // ========================================================
-      // 4. LAYER: Interactive Matrix Dots (Turns Grey when mouse moves over)
-      // (NO spiderweb lines connecting to cursor)
-      // ========================================================
+      // Interactive Matrix Dots (Turns Grey when mouse moves over)
+      // (NO spiderweb lines, NO running dots)
       for (let i = 0; i <= currentCols; i++) {
         for (let j = 0; j <= currentRows; j++) {
           const px = i * spacing;
@@ -267,7 +130,6 @@ export default function FullPageDynamicBackground() {
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
