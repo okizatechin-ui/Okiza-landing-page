@@ -258,7 +258,7 @@ export default function CinematicWorkflow() {
         if (mouseRef.current) mouseRef.current.active = false;
         setMousePos({ x: -2000, y: -2000 });
       }}
-      className="w-full py-28 px-4 sm:px-8 lg:px-12 bg-transparent text-white relative overflow-hidden border-b border-[#262626]"
+      className="w-full pt-6 md:pt-10 pb-24 px-4 sm:px-8 lg:px-12 bg-transparent text-white relative overflow-hidden border-b border-[#262626]"
       data-component="@components/CinematicWorkflow.jsx"
     >
       {/* 1. Interactive Cursor Tracking Spotlight (High-End Subtle Ambient Glow) */}

@@ -23,7 +23,7 @@ export default function OkizaHeroSection() {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setMousePos({ x: -2000, y: -2000 })}
-      className="relative w-full pt-10 md:pt-12 pb-20 px-6 md:px-12 bg-transparent text-center overflow-hidden"
+      className="relative w-full pt-10 md:pt-12 pb-4 md:pb-6 px-6 md:px-12 bg-transparent text-center overflow-hidden"
     >
       {/* 1. Interactive Cursor Tracking Spotlight */}
       <div
