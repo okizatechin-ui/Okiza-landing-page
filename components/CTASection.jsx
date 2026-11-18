@@ -14,7 +14,7 @@ export default function CTASection() {
   };
 
   return (
-    <section className="w-full px-6 sm:px-12 md:px-20 pt-10 sm:pt-14 pb-2 sm:pb-4 bg-transparent relative overflow-hidden">
+    <section className="w-full px-6 sm:px-12 md:px-20 pt-8 sm:pt-12 pb-0 bg-transparent relative overflow-hidden">
       {/* Background radial gradient glow */}
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-10 pointer-events-none"
@@ -23,7 +23,7 @@ export default function CTASection() {
         }}
       />
 
-      <div className="max-w-4xl mx-auto rounded-2xl border border-[#262626] bg-gradient-to-b from-[#111111] to-[#070707] px-6 py-8 sm:px-12 sm:py-10 text-center relative z-10 shadow-2xl">
+      <div className="max-w-4xl mx-auto rounded-2xl border border-[#262626] bg-gradient-to-b from-[#111111] to-[#070707] px-6 pt-8 pb-5 sm:px-12 sm:pt-10 sm:pb-6 text-center relative z-10 shadow-2xl">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffffff]/10 text-[#ffffff] text-xs font-semibold mb-6 border border-[#ffffff]/20">
           <Sparkles className="w-3.5 h-3.5 text-[#ffffff]" />
           <span>Start Your Free 14-Day Growth Trial</span>
@@ -65,7 +65,7 @@ export default function CTASection() {
           </form>
         )}
 
-        <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-xs text-[#a1a1aa]">
+        <div className="flex flex-wrap items-center justify-center gap-6 mt-6 sm:mt-7 text-xs text-[#a1a1aa]">
           <span>✓ No credit card required</span>
           <span>✓ Full access to all 7 studios</span>
           <span>✓ Cancel anytime</span>
