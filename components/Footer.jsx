@@ -32,7 +32,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         {/* Main Grid: Brand Column + 4 Link Columns */}
         <div className="grid grid-cols-2 md:grid-cols-12 gap-8 lg:gap-12 mb-12">
-          {/* Brand Info & AI Summaries (Col 1-4 on desktop) */}
+          {/* Brand Info (Col 1-4 on desktop) */}
           <div className="col-span-2 md:col-span-4 flex flex-col gap-5">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group w-fit">
@@ -88,59 +88,6 @@ export default function Footer() {
                 </svg>
               </a>
             </div>
-
-            {/* Request AI Summary of Okiza */}
-            <div className="flex flex-col gap-2.5 mt-2">
-              <span className={`text-[10px] font-mono tracking-widest uppercase font-semibold ${
-                isLight ? "text-zinc-400" : "text-[#71717a]"
-              }`}>
-                REQUEST AI SUMMARY OF OKIZA
-              </span>
-
-              <div className={`flex items-center gap-3.5 ${isLight ? "text-zinc-500" : "text-[#a1a1aa]"}`}>
-                {/* ChatGPT */}
-                <a
-                  href="https://chatgpt.com/?q=Summarize+Okiza+AI+CMO+and+Autonomous+Growth+Platform"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}
-                  aria-label="Summarize with ChatGPT"
-                  title="Summarize with ChatGPT"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 8.76a4.48 4.48 0 0 1 2.366-1.973V12.4a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 8.76zm16.597 3.855l-5.833-3.387L15.119 8.06a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.674 8.136v-5.696a.79.79 0 0 0-.409-.676zm2.01-4.887a4.462 4.462 0 0 1 .535 3.014l-.142-.085-4.783-2.759a.771.771 0 0 0-.78 0l-5.843 3.369V8.944a.08.08 0 0 1 .033-.062L14.26 6.05a4.5 4.5 0 0 1 6.687 1.678zM12.008 13.16l-2.433-1.405 2.433-1.405 2.433 1.405z" />
-                  </svg>
-                </a>
-
-                {/* Claude (Anthropic spark) */}
-                <a
-                  href="https://claude.ai/new?q=Summarize+Okiza+AI+CMO+and+Autonomous+Growth+Platform"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}
-                  aria-label="Summarize with Claude"
-                  title="Summarize with Claude"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 2a1 1 0 0 1 1 1v4.14a6.85 6.85 0 0 1 3.86 1.6l2.93-2.93a1 1 0 0 1 1.42 1.42l-2.93 2.93a6.85 6.85 0 0 1 1.6 3.84H23a1 1 0 1 1 0 2h-4.12a6.85 6.85 0 0 1-1.6 3.84l2.93 2.93a1 1 0 1 1-1.42 1.42l-2.93-2.93a6.85 6.85 0 0 1-3.86 1.6V23a1 1 0 1 1-2 0v-4.14a6.85 6.85 0 0 1-3.86-1.6l-2.93 2.93a1 1 0 0 1-1.42-1.42l2.93-2.93a6.85 6.85 0 0 1-1.6-3.84H1a1 1 0 0 1 0-2h4.12a6.85 6.85 0 0 1 1.6-3.84L3.79 6.23a1 1 0 0 1 1.42-1.42l2.93 2.93A6.85 6.85 0 0 1 12 6.14V3a1 1 0 0 1 1-1z" />
-                  </svg>
-                </a>
-
-                {/* Perplexity */}
-                <a
-                  href="https://www.perplexity.ai/search?q=Summarize+Okiza+AI+CMO+and+Autonomous+Growth+Platform"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`transition-colors ${isLight ? "hover:text-black" : "hover:text-[#ffffff]"}`}
-                  aria-label="Summarize with Perplexity"
-                  title="Summarize with Perplexity"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 2l-7 4v5c0 4.5 3 8.7 7 9.8 4-1.1 7-5.3 7-9.8V6l-7-4zm-1 4.3l5 2.9-5 2.8V6.3zm2 11.2c-2.8-.9-5-4.2-5-7.7V8.1l3 1.7v3.4l2 1.1v3.1zm4-7.7c0 3.5-2.2 6.8-5 7.7v-3.1l2-1.1V9.8l3-1.7v4.1z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
           </div>
 
           {/* Column 1: TOOLS (Col 5-6 on desktop) */}
@@ -176,7 +123,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: USE CASES & RESOURCES (Col 7-8 on desktop) */}
+          {/* Column 2: USE CASES (Col 7-8 on desktop) */}
           <div className="col-span-1 md:col-span-2 flex flex-col">
             <span className={headerClass}>
               USE CASES
@@ -222,27 +169,9 @@ export default function Footer() {
                 More Use Cases
               </Link>
             </div>
-
-            <span className={headerMtClass}>
-              RESOURCES
-            </span>
-            <div className="flex flex-col gap-2.5">
-              <Link href="/growth-methodology" className={linkClass}>
-                Skills
-              </Link>
-              <Link href="/docs" className={linkClass}>
-                Prompts
-              </Link>
-              <Link href="/stories" className={linkClass}>
-                Launch Library
-              </Link>
-              <Link href="/growth-methodology" className={linkClass}>
-                Viral Launch Handbook
-              </Link>
-            </div>
           </div>
 
-          {/* Column 3: LEARN & INTEGRATIONS (Col 9-10 on desktop) */}
+          {/* Column 3: LEARN (Col 9-10 on desktop) */}
           <div className="col-span-1 md:col-span-2 flex flex-col">
             <span className={headerClass}>
               LEARN
@@ -258,77 +187,9 @@ export default function Footer() {
                 LLMs.txt Generator
               </Link>
             </div>
-
-            <span className={headerMtClass}>
-              INTEGRATIONS
-            </span>
-            <div className="flex flex-col gap-2.5">
-              <Link
-                href="/integrations"
-                className={`${linkClass} inline-flex items-center gap-1.5`}
-              >
-                <span>Okiza MCP</span>
-                <span className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded font-bold tracking-wider ${
-                  isLight ? "bg-zinc-100 text-zinc-900 border border-zinc-200" : "bg-[#27272a] text-[#e4e4e7]"
-                }`}>
-                  NEW
-                </span>
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                WordPress
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                Webflow
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                Framer
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                Wix
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                HubSpot
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                Sanity
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                Google Search Console
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                Google Analytics
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                Google Ads
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                GitHub
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                LinkedIn
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                X (Twitter)
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                WhatsApp
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                Telegram
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                TikTok
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                Instagram
-              </Link>
-              <Link href="/integrations" className={linkClass}>
-                Facebook
-              </Link>
-            </div>
           </div>
 
-          {/* Column 4: COMPANY & AGENTS (Col 11-12 on desktop) */}
+          {/* Column 4: COMPANY (Col 11-12 on desktop) */}
           <div className="col-span-1 md:col-span-2 flex flex-col">
             <span className={headerClass}>
               COMPANY
@@ -360,42 +221,6 @@ export default function Footer() {
               </Link>
               <Link href="/pricing" className={linkClass}>
                 Refund Policy
-              </Link>
-            </div>
-
-            <span className={headerMtClass}>
-              AGENTS
-            </span>
-            <div className="flex flex-col gap-2.5">
-              <Link href="/agents/influencer" className={linkClass}>
-                Influencer
-              </Link>
-              <Link href="/agents/seo" className={linkClass}>
-                Ads
-              </Link>
-              <Link href="/agents/reddit" className={linkClass}>
-                Reddit
-              </Link>
-              <Link href="/agents/seo" className={linkClass}>
-                SEO
-              </Link>
-              <Link href="/agents/writer" className={linkClass}>
-                Writer
-              </Link>
-              <Link href="/agents/x-twitter" className={linkClass}>
-                X (Twitter)
-              </Link>
-              <Link href="/agents/linkedin" className={linkClass}>
-                LinkedIn
-              </Link>
-              <Link href="/agents/geo" className={linkClass}>
-                GEO
-              </Link>
-              <Link href="/agents/coding" className={linkClass}>
-                Coding
-              </Link>
-              <Link href="/agents/ugc-videos" className={linkClass}>
-                UGC Videos
               </Link>
             </div>
           </div>

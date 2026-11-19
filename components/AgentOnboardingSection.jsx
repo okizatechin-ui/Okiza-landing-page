@@ -628,7 +628,7 @@ export default function AgentOnboardingSection() {
                   {/* Action CTA */}
                   <div className="pt-2">
                     <Link
-                      href="/pricing"
+                      href="https://calendly.com/kushalpatel1803" target="_blank" rel="noopener noreferrer"
                       className="w-full py-3.5 rounded-xl bg-white text-black font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#e4e4e7] transition-all shadow-lg cursor-pointer"
                     >
                       <span>Start 7-Day Free Trial to Apply Fixes</span>

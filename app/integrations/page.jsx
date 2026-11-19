@@ -295,7 +295,7 @@ export default function IntegrationsPage() {
             </div>
 
             <Link
-              href="/#pricing"
+              href="https://calendly.com/kushalpatel1803" target="_blank" rel="noopener noreferrer"
               className="px-6 py-3 rounded-full bg-white text-black font-semibold text-sm hover:bg-[#e4e4e7] transition-colors shrink-0 flex items-center gap-2"
             >
               Start Free Trial

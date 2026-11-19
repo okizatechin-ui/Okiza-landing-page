@@ -33,7 +33,7 @@ export default function PricingPage() {
       desc: "An AI agent that handles the foundational SEO, GEO, and AEO work for your business.",
       highlight: false,
       ctaText: "Start with Intern Plan",
-      ctaHref: "/#analyze",
+      ctaHref: "https://calendly.com/kushalpatel1803",
       features: [
         "Complete Website SEO Audit & analysis",
         "Technical SEO: identify issues & provide fixes",
@@ -58,7 +58,7 @@ export default function PricingPage() {
       desc: "Everything in Intern, plus content creation and external brand visibility across platforms.",
       highlight: true,
       ctaText: "Start 7-Day Free Trial",
-      ctaHref: "/#pricing",
+      ctaHref: "https://calendly.com/kushalpatel1803",
       features: [
         "Everything in the Intern Plan (SEO, GEO, AEO, Keywords, Competitors, Technical SEO)",
         "Blog Management: blog creation & publishing capabilities",
@@ -83,7 +83,7 @@ export default function PricingPage() {
       desc: "Everything in Manager, plus strategic marketing planning, creative execution, and video generation.",
       highlight: false,
       ctaText: "Deploy Your AI CMO",
-      ctaHref: "/#pricing",
+      ctaHref: "https://calendly.com/kushalpatel1803",
       features: [
         "Everything in the Manager Plan",
         "Marketing Strategies: generate comprehensive business strategies",
@@ -293,7 +293,7 @@ export default function PricingPage() {
               {/* Card Action CTA */}
               <div>
                 <Link
-                  href={plan.ctaHref}
+                  href={plan.ctaHref} target="_blank" rel="noopener noreferrer"
                   className={`w-full py-3.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg ${
                     plan.highlight
                       ? "bg-white hover:bg-[#e4e4e7] text-black shadow-[0_0_20px_rgba(255,255,255,0.25)]"

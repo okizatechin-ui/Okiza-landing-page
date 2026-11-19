@@ -371,6 +371,7 @@ export default function GenericUseCasesPage({ params }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    window.open("https://calendly.com/kushalpatel1803", "_blank", "noopener,noreferrer");
     if (website.trim()) {
       setSubmitted(true);
     }
@@ -621,7 +622,7 @@ export default function GenericUseCasesPage({ params }) {
             </p>
 
             <Link
-              href="/#pricing"
+              href="https://calendly.com/kushalpatel1803" target="_blank" rel="noopener noreferrer"
               className="px-8 py-3.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-[#e4e4e7] transition-all flex items-center gap-2 shadow-xl hover:scale-105"
             >
               <span>Start 7-Day Free Trial</span>

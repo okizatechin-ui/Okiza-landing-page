@@ -261,7 +261,7 @@ export default function PricingSection() {
 
               <div className="mt-8 pt-4">
                 <Link
-                  href="/#analyze"
+                  href="https://calendly.com/kushalpatel1803" target="_blank" rel="noopener noreferrer"
                   className={`w-full py-3.5 rounded-xl font-semibold text-xs text-center flex items-center justify-center gap-2 transition-all cursor-pointer ${
                     p.isPopular
                       ? isLight

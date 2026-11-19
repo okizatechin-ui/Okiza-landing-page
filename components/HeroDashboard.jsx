@@ -203,7 +203,7 @@ export default function HeroDashboard() {
                 <div className="flex items-center gap-2.5 min-w-0">
                   <div className="relative">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#3b82f6] to-[#8b5cf6] flex items-center justify-center text-white font-bold text-xs shadow-inner">
-                      SN
+                      F
                     </div>
                     <span
                       className={`absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-500 border-2 ${
@@ -217,14 +217,14 @@ export default function HeroDashboard() {
                         isLight ? "text-zinc-950" : "text-white"
                       }`}
                     >
-                      Shaik Nazeer
+                      Founder
                     </p>
                     <p
                       className={`text-[10px] font-mono truncate ${
                         isLight ? "text-zinc-500" : "text-[#a1a1aa]"
                       }`}
                     >
-                      shaik@okiza.ai
+                      founder@okiza.ai
                     </p>
                   </div>
                 </div>

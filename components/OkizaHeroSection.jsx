@@ -107,6 +107,11 @@ export default function OkizaHeroSection() {
               type="text"
               value={website}
               onChange={(e) => setWebsite(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  window.open("https://calendly.com/kushalpatel1803", "_blank", "noopener,noreferrer");
+                }
+              }}
               placeholder="yourcompany.com"
               className={`flex-1 bg-transparent text-sm py-2.5 min-w-0 focus:outline-none ${isLight
                 ? "text-[#111827] placeholder-[#9ca3af]"
@@ -114,7 +119,7 @@ export default function OkizaHeroSection() {
                 }`}
             />
             <Link
-              href="/pricing"
+              href="https://calendly.com/kushalpatel1803" target="_blank" rel="noopener noreferrer"
               className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shrink-0 flex items-center gap-1.5 shadow-sm ${isLight
                 ? "bg-[#18181b] text-[#ffffff] hover:bg-black"
                 : "bg-white text-black hover:bg-[#e4e4e7]"

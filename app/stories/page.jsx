@@ -173,7 +173,7 @@ export default function StoriesPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
-              href="/pricing"
+              href="https://calendly.com/kushalpatel1803" target="_blank" rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-3 rounded-full bg-white text-black font-semibold text-sm hover:bg-[#e4e4e7] transition-all shadow-[0_0_20px_rgba(255,255,255,0.25)]"
             >
               Start 7-Day Free Trial

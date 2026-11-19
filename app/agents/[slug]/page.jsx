@@ -406,8 +406,7 @@ export default function AgentPage({ params }) {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
-                href="#top"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                href="https://calendly.com/kushalpatel1803" target="_blank" rel="noopener noreferrer"
                 className="w-full sm:w-auto px-7 py-3 rounded-full bg-white text-black font-semibold text-sm hover:bg-[#e4e4e7] transition-all cursor-pointer shadow-lg"
               >
                 Start 7-Day Free Trial →

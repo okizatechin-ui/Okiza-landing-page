@@ -205,7 +205,7 @@ export default function StoryDetailPage({ params }) {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
-              href="/pricing"
+              href="https://calendly.com/kushalpatel1803" target="_blank" rel="noopener noreferrer"
               className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-[#e4e4e7] transition-all"
             >
               Start 7-Day Free Trial

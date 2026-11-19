@@ -18,6 +18,7 @@ export default function HeroSection({ onAnalyze }) {
 
   const handleAnalyze = (e) => {
     e.preventDefault();
+    window.open("https://calendly.com/kushalpatel1803", "_blank", "noopener,noreferrer");
     if (!website.trim()) {
       alert("Please enter a valid business website or domain (e.g. acme.com)");
       return;

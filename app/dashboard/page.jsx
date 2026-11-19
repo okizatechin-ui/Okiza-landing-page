@@ -519,8 +519,8 @@ export default function DashboardPage() {
                   <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-400 border border-[#141416]"></span>
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-medium text-white truncate">Shaik Nazeer</p>
-                  <p className="text-[10px] font-mono text-[#71717a] truncate">shaik@okiza.ai</p>
+                  <p className="text-xs font-medium text-white truncate">Founder</p>
+                  <p className="text-[10px] font-mono text-[#71717a] truncate">founder@okiza.ai</p>
                 </div>
               </div>
               <LogOut className="w-3.5 h-3.5 text-[#71717a] group-hover:text-white transition-colors" title="Log out" />

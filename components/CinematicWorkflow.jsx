@@ -139,7 +139,7 @@ export default function CinematicWorkflow() {
       terminalLogs: [
         "[00:04:20] governance.gate.awaitApproval() -> 1 release package queued",
         "[00:04:21] payload.verifySafety() -> Zero hallucinations detected",
-        "[00:04:22] founder.action: [⚡ Approve & Ship] clicked by Shaik Nazeer",
+        "[00:04:22] founder.action: [⚡ Approve & Ship] clicked by Founder",
         "[00:04:22] governance.signPayload() -> Cryptographic token released for publish",
       ],
       kpis: [
@@ -1588,20 +1588,6 @@ export default function CinematicWorkflow() {
               >
                 Ready to put your entire marketing and growth loop on autopilot?
               </span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Link
-                href="/dashboard"
-                className={`px-4 py-2 rounded-xl font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-sm ${
-                  isLight
-                    ? "bg-black text-white hover:bg-zinc-800"
-                    : "bg-white text-black hover:bg-zinc-200"
-                }`}
-              >
-                <span>Launch Interactive Dashboard</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
             </div>
           </div>
         </div>

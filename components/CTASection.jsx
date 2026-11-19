@@ -12,6 +12,7 @@ export default function CTASection() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    window.open("https://calendly.com/kushalpatel1803", "_blank", "noopener,noreferrer");
     if (!email) return;
     setSubscribed(true);
   };
@@ -84,7 +85,6 @@ export default function CTASection() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your work email..."
-              required
               className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none transition-colors ${
                 isLight
                   ? "bg-white border-zinc-300 text-zinc-950 placeholder-zinc-400 focus:border-zinc-900 shadow-xs"

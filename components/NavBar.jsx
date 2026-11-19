@@ -38,12 +38,10 @@ import {
   CodeXml,
   Clapperboard,
   PenTool,
-  Sun,
-  Moon,
 } from "lucide-react";
 
 export default function NavBar() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const isLight = theme === "light";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null); // "usecases" | "agents" | "integrations" | "resources"
@@ -886,26 +884,12 @@ export default function NavBar() {
           </div>
         </div>
 
-        {/* Right Section: Theme Toggle + CTA Button + Mobile Menu Button */}
+        {/* Right Section: CTA Button + Mobile Menu Button */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-            title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
-            className={`p-2 rounded-full border transition-all cursor-pointer flex items-center justify-center ${
-              isLight
-                ? "bg-zinc-100 hover:bg-zinc-200 border-zinc-200 text-zinc-800"
-                : "bg-white/5 hover:bg-white/10 border-white/10 text-zinc-300 hover:text-white"
-            }`}
-          >
-            {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-          </button>
-
           {/* Desktop CTA Button */}
           <div className="hidden md:flex items-center gap-3">
             <Link
-              href="/dashboard"
+              href="https://calendly.com/kushalpatel1803" target="_blank" rel="noopener noreferrer"
               className={`inline-flex items-center gap-1.5 text-sm font-semibold px-5 py-2 rounded-full transition-all cursor-pointer ${
                 isLight
                   ? "bg-zinc-900 text-white hover:bg-black shadow-sm"
@@ -1054,7 +1038,7 @@ export default function NavBar() {
 
           <div className="pt-2">
             <Link
-              href="/dashboard"
+              href="https://calendly.com/kushalpatel1803" target="_blank" rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full text-center py-2.5 text-sm font-semibold rounded-full bg-[#ffffff] text-[#000000] block cursor-pointer"
             >
